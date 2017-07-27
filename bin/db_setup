@@ -1,0 +1,133 @@
+#!/bin/bash
+
+MYSQL=`which mysql`
+
+Q1="CREATE DATABASE IF NOT EXISTS warehaus_media;"
+Q2="GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';"
+Q3="FLUSH PRIVILEGES;"
+SQL="${Q1}${Q2}${Q3}"
+
+$MYSQL -uroot -e "$SQL"
+
+$MYSQL -uroot <<CreateUserTable
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`Users\` (
+  \`UserID\` INT(11) NOT NULL AUTO_INCREMENT,
+  \`Username\` VARCHAR(50) NOT NULL,
+  \`Password\` VARCHAR(45) NOT NULL,
+  \`Role\` VARCHAR(45) NULL DEFAULT NULL,
+  \`Email\` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (\`UserID\`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+CreateUserTable
+
+$MYSQL -uroot <<CreateCategoriesTable
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`Categories\` (
+  \`CategoryID\` INT(11) NOT NULL AUTO_INCREMENT,
+  \`Category\` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (\`CategoryID\`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+CreateCategoriesTable
+
+$MYSQL -uroot <<CreateMediaTable
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`Media\` (
+  \`MediaID\` INT(11) NOT NULL AUTO_INCREMENT,
+  \`Title\` VARCHAR(45) NULL DEFAULT NULL,
+  \`FileLocation\` VARCHAR(45) NULL DEFAULT NULL,
+  \`ThumbnailLocation\` VARCHAR(45) NULL DEFAULT NULL,
+  \`MediaType\` VARCHAR(45) NULL DEFAULT NULL,
+  \`Format\` VARCHAR(45) NULL DEFAULT NULL,
+  \`DateUploaded\` DATETIME NULL DEFAULT NULL,
+  \`Price\` DECIMAL(11,2) NULL DEFAULT NULL,
+  \`Categories_Category_ID\` INT(11) NOT NULL,
+  \`Users_UserID\` INT(11) NOT NULL,
+  PRIMARY KEY (\`MediaID\`, \`Users_UserID\`),
+  INDEX \`fk_Media_Categories1_idx\` (\`Categories_Category_ID\` ASC),
+  INDEX \`fk_Media_User1_idx\` (\`Users_UserID\` ASC),
+  CONSTRAINT \`fk_Media_Categories1\`
+    FOREIGN KEY (\`Categories_Category_ID\`)
+    REFERENCES \`warehaus_media\`.\`Categories\` (\`CategoryID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT \`fk_Media_User1\`
+    FOREIGN KEY (\`Users_UserID\`)
+    REFERENCES \`warehaus_media\`.\`Users\` (\`UserID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+CreateMediaTable
+
+$MYSQL -uroot <<CreateTransactionsTable
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`Transactions\` (
+  \`OrderDate\` DATETIME NOT NULL,
+  \`SoldBy\` INT(11) NOT NULL,
+  \`PurchasedBy\` INT(11) NOT NULL,
+  PRIMARY KEY (\`OrderDate\`, \`SoldBy\`, \`PurchasedBy\`),
+  INDEX \`fk_Transactions_User1_idx\` (\`SoldBy\` ASC),
+  INDEX \`fk_Transactions_User2_idx\` (\`PurchasedBy\` ASC),
+  CONSTRAINT \`fk_Transactions_User1\`
+    FOREIGN KEY (\`SoldBy\`)
+    REFERENCES \`warehaus_media\`.\`Users\` (\`UserID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT \`fk_Transactions_User2\`
+    FOREIGN KEY (\`PurchasedBy\`)
+    REFERENCES \`warehaus_media\`.\`Users\` (\`UserID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+CreateTransactionsTable
+
+$MYSQL -uroot <<CreateMediaAttributesTable
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`MediaAttributes\` (
+  \`MediaID\` INT(11) NOT NULL,
+  \`MediaAttributes\` VARCHAR(1000) NULL DEFAULT NULL,
+  PRIMARY KEY (\`MediaID\`),
+  CONSTRAINT \`fk_table1_Media2\`
+    FOREIGN KEY (\`MediaID\`)
+    REFERENCES \`warehaus_media\`.\`Media\` (\`MediaID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+CreateMediaAttributesTable
+
+$MYSQL -uroot <<CreateMessagesTable
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`Messages\` (
+  \`User1\` INT(11) NOT NULL,
+  \`User2\` INT(11) NOT NULL,
+  \`Message\` VARCHAR(1000) NULL DEFAULT NULL,
+  \`Date\` DATETIME NULL DEFAULT NULL,
+  INDEX \`fk_Messages_User1_idx\` (\`User1\` ASC),
+  PRIMARY KEY (\`User1\`, \`User2\`),
+  INDEX \`fk_Messages_User2_idx\` (\`User2\` ASC),
+  CONSTRAINT \`fk_Messages_User1\`
+    FOREIGN KEY (\`User1\`)
+    REFERENCES \`warehaus_media\`.\`Users\` (\`UserID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT \`fk_Messages_User2\`
+    FOREIGN KEY (\`User2\`)
+    REFERENCES \`warehaus_media\`.\`Users\` (\`UserID\`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+CreateMessagesTable
+
+echo "Done creating all tables."
+
+$MYSQL -uroot <<AddCategoriesToTable
+INSERT INTO \`warehaus_media\`.\`Categories\`
+    (Category)
+VALUES
+    ("Food"),
+    ("Architecture"),
+    ("City"),
+    ("Pets");
+AddCategoriesToTable
+
+echo "Done seeding Categories table."
