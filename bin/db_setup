@@ -82,9 +82,9 @@ DEFAULT CHARACTER SET = utf8;
 CreateTransactionsTable
 
 $MYSQL -uroot <<CreateMediaAttributesTable
-CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`MediaAttributes\` (
+CREATE TABLE IF NOT EXISTS \`warehaus_media\`.\`Media_Attributes\` (
   \`MediaID\` INT(11) NOT NULL,
-  \`MediaAttributes\` VARCHAR(1000) NULL DEFAULT NULL,
+  \`Media_Attributes\` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (\`MediaID\`),
   CONSTRAINT \`fk_table1_Media2\`
     FOREIGN KEY (\`MediaID\`)
