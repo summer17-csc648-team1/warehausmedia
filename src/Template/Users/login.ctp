@@ -5,18 +5,6 @@
  * Date: 7/28/17
  * Time: 2:21 PM
  */
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";
 ?>
 
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
