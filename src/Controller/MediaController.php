@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use PhpParser\Node\Expr\Array_;
 
 /**
  * Media Controller
@@ -24,6 +25,26 @@ class MediaController extends AppController
 
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
+    }
+
+
+    public function searchByTitle($title)
+    {
+//        $media = array();
+        $media = $this->index(); // ! As long as this is array, foreach could valid and everything will be working
+
+        //create an array $filter
+        $filtered = array();
+
+        foreach ($media as $item)
+        {
+            if ($item['Title'] == $title)     //Unsure whether $item['Title'] is correct / Or probably change to $item->Title
+            {
+                array_push($filtered, $item);   //store specific column data into $filtered
+            }
+        }
+
+        return $filtered;
     }
 
     /**
