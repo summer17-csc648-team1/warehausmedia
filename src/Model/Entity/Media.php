@@ -31,7 +31,8 @@ class Media extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'MediaID' => false,
-        'Users_UserID' => false
+        'MediaID' => true,
+        'Users_UserID' => true
     ];
+   
 }

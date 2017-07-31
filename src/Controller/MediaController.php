@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+
 
 /**
  * Media Controller
@@ -18,6 +20,9 @@ class MediaController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+    
+    
+    
     public function index()
     {
         $media = $this->paginate($this->Media);
@@ -33,6 +38,13 @@ class MediaController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    
+    public function searchByTitle()
+    {
+        $media = $this->paginate($this->Media);
+        debug($media);
+    }
+    
     public function view($id = null)
     {
         $media = $this->Media->get($id, [
@@ -41,6 +53,8 @@ class MediaController extends AppController
 
         $this->set('media', $media);
         $this->set('_serialize', ['media']);
+        
+        
     }
 
     /**
@@ -49,10 +63,23 @@ class MediaController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
+    {   
+        $category_array = array();
+//        $category_name = array();
+        //get Categories 
+        $categories = TableRegistry::get('Categories')->find('all');
+        foreach ($categories as $category)
+        {
+            //debug($category->Category);}
+            $category_array[$category->CategoryID] = $category->Category;
+//            $category_name[] = $category->Category;
+        }
+        $this->set(compact('category_array'));
+        
         $media = $this->Media->newEntity();
         if ($this->request->is('post')) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
+            debug($media);
             if ($this->Media->save($media)) {
                 $this->Flash->success(__('The media has been saved.'));
 
@@ -62,6 +89,8 @@ class MediaController extends AppController
         }
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
+        
+        
     }
 
     /**
