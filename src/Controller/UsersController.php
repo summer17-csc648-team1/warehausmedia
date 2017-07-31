@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Validation\Validation;
 
 /**
  * Users Controller
@@ -62,6 +63,23 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
+    }
+    
+    public function login()
+    {   
+        
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            debug($user);
+            if ($user) {
+                $this->Auth->setUser($user);
+                $this->Flash->success(__('Successfully logged in.'));
+                return $this->redirect($this->Auth->redirectUrl());
+            } else
+            {
+                $this->Flash->error('Your username or password is incorrect.');
+            }
+        }
     }
 
     /**

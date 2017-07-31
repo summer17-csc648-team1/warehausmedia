@@ -19,3 +19,15 @@ use warehaus_media;
 show tables;
 select * from Categories;
 ```
+
+Next, you'll need to migrate your databases so they're in the correct state:
+
+```
+bin/cake migrations migrate
+```
+
+To run the app:
+
+```
+bin/cake server
+```
