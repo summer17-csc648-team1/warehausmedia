@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 
 
+
 /**
  * Media Controller
  *
@@ -38,12 +39,7 @@ class MediaController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    
-    public function searchByTitle()
-    {
-        $media = $this->paginate($this->Media);
-        debug($media);
-    }
+
     
     public function view($id = null)
     {
@@ -64,8 +60,10 @@ class MediaController extends AppController
      */
     public function add()
     {   
+        $user = $this->Auth->user();
+        $this->set('userid', $user['UserID']);
+       
         $category_array = array();
-//        $category_name = array();
         //get Categories 
         $categories = TableRegistry::get('Categories')->find('all');
         foreach ($categories as $category)
@@ -79,7 +77,6 @@ class MediaController extends AppController
         $media = $this->Media->newEntity();
         if ($this->request->is('post')) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
-            debug($media);
             if ($this->Media->save($media)) {
                 $this->Flash->success(__('The media has been saved.'));
 

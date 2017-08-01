@@ -105,7 +105,7 @@
             
             <?= $this->Form->hidden('Users_UserID', array(
                                            'type' => 'int',
-                                           'value' => '1',
+                                           'value' => h($userid),
                                            'empty' => false
                                     ));?>
             
