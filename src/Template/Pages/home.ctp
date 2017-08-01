@@ -19,6 +19,9 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Network\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
+use Cake\Routing\Route\DashedRoute;
 
 $this->layout = 'default';
 $title = 'Home';
@@ -53,15 +56,21 @@ $this->set(compact('category_array'))
   <div class="content">
     <h3>Search by Title</h3>
     <?= $this->Form->create(); ?>
-    <?= $this->Form->input('Category', array(
+    <?= $this->Form->input('category', array(
+          'label' => 'Category',
           'type' => 'select',
           'options' => h($category_array),
           'empty' => false
         )); ?>
-    <?= $this->Form->input('title', array(
+    <?= $this->Form->input('search_input', array(
           'label' => 'Title'
     )); ?>
-    <?= $this->Form->submit('Search', array('class' => 'btn btn-primary')) ?>
+    <?= $this->Form->button('Search',  array(
+            'formaction' => Router::url(
+              array('controller' => 'Media',
+                    'action' => 'searchByTitle',
+                    'category' => 'category',
+                    'title' => 'search_input')))); ?>
     <?= $this->Form->end(); ?>
   </div>
 </body>
