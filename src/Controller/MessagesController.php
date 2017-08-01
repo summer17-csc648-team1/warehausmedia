@@ -50,7 +50,11 @@ class MessagesController extends AppController
      */
     public function add()
     {
+        $user = $this->Auth->user();
+        $this->set('$user1id', $user['UserID']);
+
         $message = $this->Messages->newEntity();
+        //debug($message);
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             if ($this->Messages->save($message)) {

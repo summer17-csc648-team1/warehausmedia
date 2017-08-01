@@ -3,21 +3,37 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Messages'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="messages form large-9 medium-8 columns content">
-    <?= $this->Form->create($message) ?>
-    <fieldset>
-        <legend><?= __('Add Message') ?></legend>
-        <?php
-            echo $this->Form->control('Message');
-            echo $this->Form->control('Date', ['empty' => true]);
-        ?>
-    </fieldset>
+
+<div class="index large-4 medium-4 large-offset-4 medium-offset-4 columns content">
+    <?= $this->Form->create(); ?>
+    <br><br>
+    <h1><?php echo "To: John"; ?></h1>
+    <br><br>
+    <?= $this->Form->input('Message', array(
+        'label' => 'Message*:',
+        'class'=> 'form-control',
+        'type' => 'textarea'
+    ));?>
+
+    <?= $this->Form->hidden('User1', array(
+        'type' => 'int',
+        'value' => 1,   // ! change 1  to user1 variable
+        'empty' => false
+    ));?>
+
+
+    <?= $this->Form->hidden('User2', array(
+        'type' => 'int',
+        'value' => 2, // ! change 2 to user2 variable
+        'empty' => false
+    ));?>
+
+    <?= $this->Form->hidden('Date', array(
+        'type' => 'datetime',
+        'value' => date("Y-m-d H:i:s"),
+        'empty' => false
+    ));?>
+
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
