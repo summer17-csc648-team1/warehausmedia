@@ -38,18 +38,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
               <h1><a class="logo" href="/pages/home">WAREHAUS</a></h1>
-
             </li>
         </ul>
         <div class="top-bar-section">
-            <ul class="right">
-
-          <li><a href="/pages/register">REGISTER</a></li>
-          <li><a href="/Users/login">LOGIN</a></li>
-          <li><a href="/pages/upload">UPLOAD</a></li>
-          <li><a href="/pages/contact">CONTACT</a></li>
+        <ul class="right">
           <li><a href="/pages/about">ABOUT US</a></li>
-            </ul>
+          <li><a href="/pages/message">MESSAGE</a></li>
+          <li><a href="/pages/upload">UPLOAD</a></li>
+            <?php if(true){ ?>
+                <li><a href="/users/login">LOG OUT</a></li>
+            <?php }else{ ?>
+                <li><a href="/users/login">LOGIN</a></li>
+            <?php } ?>
+          <li><a href="/pages/register">REGISTER</a></li>
+        </ul>
         </div>
     </nav>
     <?= $this->Flash->render() ?>
