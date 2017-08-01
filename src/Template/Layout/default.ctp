@@ -45,7 +45,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <li><a href="/pages/about">ABOUT US</a></li>
           <li><a href="/pages/message">MESSAGE</a></li>
           <li><a href="/pages/upload">UPLOAD</a></li>
-            <?php if(true){ ?>
+            <?php if($this->Session->read('Auth')) { ?>
                 <li><a href="/users/login">LOG OUT</a></li>
             <?php }else{ ?>
                 <li><a href="/users/login">LOGIN</a></li>
@@ -53,6 +53,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <li><a href="/pages/register">REGISTER</a></li>
         </ul>
         </div>
+
+
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
