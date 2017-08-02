@@ -43,19 +43,9 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
-Router::scope('/messages',
-    ['controller'=>'messages'],
-    function (RouteBuilder $routes){
-        $routes->connect('/send/*', ['action' => 'sendMessage']);
-    }
-);
-
-
 Router::scope('/media',
     ['controller' => 'Media'],
     function (RouteBuilder $routes){
-
-        $routes->connect('/result/*', ['action' => 'search']);
 
         $routes->connect('/detail/*', ['action' => 'getDetail']);
     }

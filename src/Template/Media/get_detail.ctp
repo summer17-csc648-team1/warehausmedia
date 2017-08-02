@@ -83,12 +83,12 @@ $this->layout = false;
 
 <ul>
 
-    <li><a class="logo" href="home.ctp">WAREHAUS</a></li>
-    <li><a href="register.ctp">REGISTER</a></li>
-    <li><a href="login.ctp">LOGIN</a></li>
-    <li><a href="upload.ctp">UPLOAD</a></li>
-    <li><a href="contact.ctp">CONTACT</a></li>
-    <li><a href="about.ctp">ABOUT US</a></li>
+    <li><a class="logo" href="<?php echo Router::fullBaseUrl();?>">WAREHAUS</a></li>
+    <li><a href="<?php echo Router::fullBaseUrl();?>">REGISTER</a></li>
+    <li><a href="<?php echo Router::fullBaseUrl();?>">LOGIN</a></li>
+    <li><a href="<?php echo Router::fullBaseUrl();?>">UPLOAD</a></li>
+    <li><a href="<?php echo Router::fullBaseUrl();?>">CONTACT</a></li>
+    <li><a href="<?php echo Router::fullBaseUrl();?>">ABOUT US</a></li>
 
 </ul>
 <?php foreach ($detail as $target):?>
@@ -103,17 +103,6 @@ $this->layout = false;
         <div style="float: left; margin-left: 10%;">
             <table>
 
-                <?php
-                /*if(empty($detail)){
-                    echo '$detail is empty';
-                }
-                else{
-                    foreach ($detail as $found)
-                        debug($found['Title']);
-                }*/
-
-                ?>
-
                 <tr>
                     <h1 id="title"><?php echo $target['Title']?></h1>
                 </tr>
@@ -125,7 +114,7 @@ $this->layout = false;
                 </tr>
                 <tr>
                     <p id="owner"><b>Owner: </b> <?php echo $target['Users_UserID']?></p>
-                    <a href="http://localhost:8765/messages/<?php echo $target['Users_UserID'];?>"><button >Contact Owner</button></a>
+                    <a href="#"><button >Contact Owner</button></a>
                 </tr>
 
             </table>
