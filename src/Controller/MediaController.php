@@ -122,12 +122,10 @@ class MediaController extends AppController
         //die('Test get detail of a media');
         $param = $this->request->getParam('pass');
 
-        $category = $param[(int) 1];
-        $id = $param[(int) 2];
+        $id = $param[(int) 0];
 
 
         $detail = $this->Media->find('byID', [
-            'category' => $category,
             'id' => $id
         ]);
 

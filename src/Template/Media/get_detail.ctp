@@ -91,51 +91,55 @@ $this->layout = false;
     <li><a href="about.ctp">ABOUT US</a></li>
 
 </ul>
+<?php foreach ($detail as $target):?>
 
 <div style="margin-left: 5%; margin-top: 5%">
     <div>
+
         <div style="float: left;">
-            <img id="preview" src="<?php echo $this->request->webroot; ?>img/testImg.jpg" >
+            <img id="preview" src="<?php echo $this->request->webroot.$target['FileLocation']?>"" >
         </div>
 
         <div style="float: left; margin-left: 10%;">
             <table>
 
                 <?php
-                if(empty($detail)){
+                /*if(empty($detail)){
                     echo '$detail is empty';
                 }
                 else{
-                    debug($detail);
-                }
+                    foreach ($detail as $found)
+                        debug($found['Title']);
+                }*/
 
                 ?>
 
-                <!--
                 <tr>
-                    <h1 id="title">Test Image</h1>
+                    <h1 id="title"><?php echo $target['Title']?></h1>
                 </tr>
                 <tr>
-                    <p id="category"> <b>Category: </b> <?php echo "Games";?></p>
+                    <p id="category"> <b>Category: </b> <?php echo $target['Categories_Category_ID'];?></p>
                 </tr>
                 <tr>
-                    <p id="price"><b>Price: </b> <?php echo "$1.00"; ?></p>
+                    <p id="price"><b>Price: </b> <?php echo '$'.$target['Price']; ?></p>
                 </tr>
                 <tr>
-                    <p id="owner"><b>Owner: </b> <?php echo "AUserName"?></p>
-                    <a href="#"><button >Contact Owner</button></a>
+                    <p id="owner"><b>Owner: </b> <?php echo $target['Users_UserID']?></p>
+                    <a href="http://localhost:8765/messages/<?php echo $target['Users_UserID'];?>"><button >Contact Owner</button></a>
                 </tr>
-                -->
+
             </table>
 
         </div>
+
     </div>
     <div style="clear: both;">
         <hr>
         <h3>Description</h3>
-        <p id="description"><?php echo "Here is the description of the picture provided by the seller." ?></p>
+        <p id="description"><?php echo $target['Description'] ?></p>
     </div>
 </div>
+<?php endforeach;?>
 
 </body>
 </html>

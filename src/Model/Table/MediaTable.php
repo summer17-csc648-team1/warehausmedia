@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -29,6 +30,8 @@ class MediaTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
+
+        $this->belongsTo('Categories');
 
         $this->setTable('media');
         $this->setDisplayField('MediaID');
@@ -112,16 +115,14 @@ class MediaTable extends Table
     public function findByID(Query $query, array $options){
         //die('test find by ID');
         $id = $options['id'];
-        $category = $options['category'];
+
 
         $target = $this->find()
-            ->select(['MediaID','Title', 'FileLocation', 'ThumbnailLocation', 'DateUploaded', 'Price', 'Categories.Category', 'User_UserID'])
-            ->innerJoinWith('Categories')
+            ->select()
             ->where(['MediaID'=>$id]);
-        //return ['id'=>$id, 'category'=>$category];
-        return $target->group('MediaID');
-        /*$testReturn = ['id' => $Media];
-        return $testReturn;*/
+
+        return $target;
+
 
     }
 
