@@ -43,7 +43,6 @@
           <li><a href="/pages/about">ABOUT US</a></li>
           <li><a href="/pages/message">MESSAGE</a></li>
           <li><a href="/pages/upload">UPLOAD</a></li>
-            
             <?php if($this->request->session()->read('Auth')) { ?>
                 <li><a href="/users/login">LOGOUT</a></li>
             <?php }
@@ -58,7 +57,6 @@
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
-      <h1 align = 'center'><a href=""><?= $this->fetch('title') ?></a></h1>
         <?= $this->fetch('content') ?>
     </div>
     <footer>
