@@ -45,12 +45,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <li><a href="/pages/about">ABOUT US</a></li>
           <li><a href="/pages/message">MESSAGE</a></li>
           <li><a href="/pages/upload">UPLOAD</a></li>
-            <?php if($this->Session->read('Auth')) { ?>
-                <li><a href="/users/logout">LOG OUT</a></li>
-            <?php }else{ ?>
+
+
+            <?php if($this->request->session()->read('Auth')) { ?>
+                <li><a href="/users/login">LOGOUT</a></li>
+            <?php }
+            else{ ?>
                 <li><a href="/users/login">LOGIN</a></li>
+                <li><a href="/pages/register">REGISTER</a></li>
+
             <?php } ?>
-          <li><a href="/pages/register">REGISTER</a></li>
+
+
         </ul>
         </div>
 
