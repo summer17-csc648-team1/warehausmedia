@@ -104,4 +104,25 @@ class MediaTable extends Table
         return $Media.group(['MediaID']);
     }
 
+    public function findByTitle(Query $query, array $options){
+        die('test findByTitle');
+    }
+
+
+    public function findByID(Query $query, array $options){
+        //die('test find by ID');
+        $id = $options['id'];
+        $category = $options['category'];
+
+        $target = $this->find()
+            ->select(['MediaID','Title', 'FileLocation', 'ThumbnailLocation', 'DateUploaded', 'Price', 'Categories.Category', 'User_UserID'])
+            ->innerJoinWith('Categories')
+            ->where(['MediaID'=>$id]);
+        //return ['id'=>$id, 'category'=>$category];
+        return $target->group('MediaID');
+        /*$testReturn = ['id' => $Media];
+        return $testReturn;*/
+
+    }
+
 }

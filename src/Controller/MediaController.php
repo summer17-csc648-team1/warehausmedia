@@ -108,4 +108,29 @@ class MediaController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function search(){
+        //die('Test homepage search result');
+        $title = $this->request->getParam('passed');
+
+        $results = $this->Media->find('byTitle', [
+            'title' => $title
+        ]);
+    }
+
+    public function getDetail(){
+        //die('Test get detail of a media');
+        $param = $this->request->getParam('pass');
+
+        $category = $param[(int) 1];
+        $id = $param[(int) 2];
+
+
+        $detail = $this->Media->find('byID', [
+            'category' => $category,
+            'id' => $id
+        ]);
+
+        $this->set(['detail' => $detail]);
+    }
 }

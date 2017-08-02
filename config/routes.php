@@ -43,6 +43,16 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+Router::scope('/media',
+    ['controller' => 'Media'],
+    function (RouteBuilder $routes){
+
+        $routes->connect('/result/*', ['action' => 'search']);
+
+        $routes->connect('/detail/*', ['action' => 'getDetail', 'detail']);
+    }
+);
+
 Router::scope('/', function (RouteBuilder $routes) {
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
