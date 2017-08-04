@@ -44,12 +44,12 @@
           <li><a href="/pages/message">MESSAGE</a></li>
           <li><a href="/pages/upload">UPLOAD</a></li>
             <?php if($this->request->session()->read('Auth')) { ?>
-                <li><a href="/users/login">LOGOUT</a></li>
+                <li><a href="/users/logout">LOGOUT</a></li>
             <?php }
 
             else{ ?>
                 <li><a href="/users/login">LOGIN</a></li>
-                <li><a href="/pages/register">REGISTER</a></li>
+                <li><a href="/users/add">REGISTER</a></li>
 
             <?php } ?>
         </ul>
