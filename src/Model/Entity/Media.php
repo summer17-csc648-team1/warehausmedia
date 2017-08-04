@@ -1,8 +1,6 @@
 <?php
 namespace App\Model\Entity;
-
 use Cake\ORM\Entity;
-
 /**
  * Media Entity
  *
@@ -19,7 +17,6 @@ use Cake\ORM\Entity;
  */
 class Media extends Entity
 {
-
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -31,7 +28,6 @@ class Media extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'MediaID' => true,
-        'user_id' => true
+        'MediaID' => false,
     ];
 }
