@@ -32,6 +32,15 @@ header {
 header .header-title {
     padding-left:80px
 }
+.panel{
+  padding-left: 300px;
+  padding-right: 300px;
+  border: none;
+}
+
+.panel-default{
+  background-color: white;
+}
 
 legend {
     color:#15848F;

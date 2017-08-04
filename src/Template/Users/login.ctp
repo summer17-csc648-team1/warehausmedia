@@ -38,6 +38,9 @@ $title = 'Warehaus Media - Login';
 </head>
 
 <body>
+  <div class="panel panel-default">
+  
+
   <?= $this->Form->create(); ?>
   <?= $this->Form->input('Username', array(
                           'label' => 'Username',
@@ -50,5 +53,6 @@ $title = 'Warehaus Media - Login';
                           'type' => 'password'
                   )); ?>
   <?= $this->Form->submit('Login', array('class' => 'btn btn-array')); ?>
+</div>
 </body>
 </html>
