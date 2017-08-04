@@ -80,7 +80,6 @@ class MediaController extends AppController
      */
     public function edit($id = null)
     {
-        Log::debug("About to edit " . $id);
 
         //Query for the correct MediaID
         if($id != null) {
@@ -149,9 +148,9 @@ class MediaController extends AppController
         // The owner of an article can edit and delete it
         if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
             $MediaId = (int)$this->request->getParam('pass.0');
-            Log::debug($MediaId . " " . $user['UserID']);
+
             if ($this->Media->isOwnedBy($MediaId, $user['UserID'])) {
-                Log::debug("Getting here");
+
                 return true;
             }
         }
