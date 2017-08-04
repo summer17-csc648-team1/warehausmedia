@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Cake\Log\Log;
 use App\Controller\AppController;
 use Cake\Validation\Validation;
 
@@ -14,6 +15,13 @@ use Cake\Validation\Validation;
 class UsersController extends AppController
 {
 
+    public function initialize() {
+
+        parent::initialize();
+
+        //Allow users to access register page
+        $this->Auth->allow(['add']);
+    }
     /**
      * Index method
      *
@@ -25,6 +33,7 @@ class UsersController extends AppController
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
+
     }
 
     /**
@@ -57,7 +66,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -70,7 +79,6 @@ class UsersController extends AppController
         
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            debug($user);
             if ($user) {
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('Successfully logged in.'));
