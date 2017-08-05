@@ -50,6 +50,14 @@ Router::scope('/messages',
 
     });
 
+Router::scope('/media',
+    ['controller' => 'Media'],
+    function (RouteBuilder $routes){
+
+        $routes->connect('/detail/*', ['action' => 'getDetail']);
+    }
+);
+
 Router::scope('/', function (RouteBuilder $routes) {
 
 

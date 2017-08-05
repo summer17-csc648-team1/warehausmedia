@@ -130,4 +130,15 @@ class MessagesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function sendMessage(){
+        $param = $this->request->getParam('pass');
+        $name = $param[(int) 0];
+        //die($userID);
+
+        $detail = $this->Messages->find('byUID', [
+            'name' => $name
+        ]);
+
+    }
 }
