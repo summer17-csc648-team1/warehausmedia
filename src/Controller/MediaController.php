@@ -20,6 +20,9 @@ class MediaController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+
+
+
     public function index()
     {
         $media = $this->paginate($this->Media);
@@ -69,6 +72,8 @@ class MediaController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
+
     public function view($id = null)
     {
         $media = $this->Media->get($id, [
@@ -77,6 +82,8 @@ class MediaController extends AppController
 
         $this->set('media', $media);
         $this->set('_serialize', ['media']);
+
+
     }
 
     /**
@@ -86,15 +93,38 @@ class MediaController extends AppController
      */
     public function add()
     {
+        $user = $this->Auth->user();
+        $this->set('userid', $user['UserID']);
+
+        $category_array = array();
+        //get Categories
+        $categories = TableRegistry::get('Categories')->find('all');
+        foreach ($categories as $category)
+        {
+            $category_array[$category->CategoryID] = $category->Category;
+        }
+        $this->set(compact('category_array'));
+
         $media = $this->Media->newEntity();
+
         if ($this->request->is('post')) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
-            if ($this->Media->save($media)) {
-                $this->Flash->success(__('The media has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            $destination = 'Images/'; //webroot folder
+            $filename = $media['upload']['name'];
+            $filetype = $media['upload']['type'];
+            if($filetype == 'image/jpg' || $filetype == 'image/jpeg' || $filetype == 'image/png'){
+                if(move_uploaded_file($media['upload']['tmp_name'], WWW_ROOT.$destination.$filename)){
+                $media->FileLocation = 'Images/'.$filename; //store reference in db
+                }
+                if ($this->Media->save($media)) {
+                    $this->Flash->success(__('The media has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }else{
+                    $this->Flash->error(__('The media could not be saved. Please, try again.'));
+                }
+            }else{
+                $this->Flash->error(__('Sorry, we only support .jpg and .png file types'));
             }
-            $this->Flash->error(__('The media could not be saved. Please, try again.'));
         }
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);

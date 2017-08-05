@@ -32,7 +32,7 @@ class MediaTable extends Table
 
         $this->setTable('media');
         $this->setDisplayField('MediaID');
-        $this->setPrimaryKey(['MediaID', 'Users_UserID']);
+        $this->setPrimaryKey(['MediaID', 'user_id']);
     }
 
     /**
@@ -71,13 +71,13 @@ class MediaTable extends Table
             ->allowEmpty('Price');
 
         $validator
-            ->integer('Categories_Category_ID')
-            ->requirePresence('Categories_Category_ID', 'create')
-            ->notEmpty('Categories_Category_ID');
+            ->integer('category_id')
+            ->requirePresence('category_id', 'create')
+            ->notEmpty('category_id');
 
         $validator
-            ->integer('Users_UserID')
-            ->allowEmpty('Users_UserID', 'create');
+            ->integer('user_id')
+            ->allowEmpty('user_id', 'create');
 
         return $validator;
     }
