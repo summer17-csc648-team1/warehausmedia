@@ -12,7 +12,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Routing\Router;
-$this->layout = false;
+$this->layout = 'default';
 ?>
 
 <!DOCTYPE html>
@@ -79,54 +79,47 @@ $this->layout = false;
 
 <body class="detail">
 
-
-
-<ul>
-
-    <li><a class="logo" href="<?php echo Router::fullBaseUrl();?>">WAREHAUS</a></li>
-    <li><a href="<?php echo Router::fullBaseUrl();?>">REGISTER</a></li>
-    <li><a href="<?php echo Router::fullBaseUrl();?>">LOGIN</a></li>
-    <li><a href="<?php echo Router::fullBaseUrl();?>">UPLOAD</a></li>
-    <li><a href="<?php echo Router::fullBaseUrl();?>">CONTACT</a></li>
-    <li><a href="<?php echo Router::fullBaseUrl();?>">ABOUT US</a></li>
-
-</ul>
 <?php foreach ($detail as $target): ?>
 
 <div style="margin-left: 5%; margin-top: 5%">
-    <div>
 
-        <div style="float: left;">
-            <img id="preview" src="<?php echo $this->request->webroot.$target['FileLocation']?>"" >
-        </div>
+    <table>
+        <tr id="image_and_detail">
+            <td><img id="preview" src="<?php echo $this->request->webroot.$target['FileLocation']?>"></td>
 
-        <div style="float: left; margin-left: 10%;">
-            <table>
+            <td>
+                <div style="float: left; margin-left: 10%;">
+                    <table>
 
-                <tr>
-                    <h1 id="title"><?php echo $target['Title']?></h1>
-                </tr>
-                <tr>
-                    <p id="category"> <b>Category: </b> <?php echo $target['_matchingData']['Categories']['Category'];?></p>
-                </tr>
-                <tr>
-                    <p id="price"><b>Price: </b> <?php echo '$'.$target['Price']; ?></p>
-                </tr>
-                <tr>
-                    <p id="owner"><b>Owner: </b> <?php echo $target['_matchingData']['Users']['Username']?></p>
-                    <a href="#"><button >Contact Owner</button></a>
-                </tr>
+                        <tr>
+                            <h1 id="title"><?php echo $target['Title']?></h1>
+                        </tr>
+                        <tr>
+                            <p id="category"> <b>Category: </b> <?php echo $target['_matchingData']['Categories']['Category'];?></p>
+                        </tr>
+                        <tr>
+                            <p id="price"><b>Price: </b> <?php echo '$'.$target['Price']; ?></p>
+                        </tr>
+                        <tr>
+                            <p id="owner"><b>Owner: </b> <?php echo $target['_matchingData']['Users']['Username']?></p>
+                            <a href="#"><button >Contact Owner</button></a>
+                        </tr>
 
-            </table>
+                    </table>
 
-        </div>
-
-    </div>
-    <div style="clear: both;">
-        <hr>
-        <h3>Description</h3>
-        <p id="description"><?php echo $target['Description'] ?></p>
-    </div>
+                </div>
+            </td>
+        </tr>
+        <tr id="description">
+            <td>
+                <div style="clear: both;">
+                    <hr>
+                    <h3>Description</h3>
+                    <p id="description"><?php echo $target['Description'] ?></p>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 <?php endforeach;?>
 
