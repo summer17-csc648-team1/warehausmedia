@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use PhpParser\Node\Stmt\Global_;
+
 /**
  * Messages Controller
  *
@@ -15,17 +17,18 @@ class MessagesController extends AppController
 
     public function sendId()
     {
+        global $mediaID;
         $param = $this->request->getParam('pass');
-        $name = $param[(int) 0];
-        $mid = $param[(int) 1];
+        $userName = $param[(int) 1];  //array(1) is user ID
+        $mediaID = $param[(int) 0];   //array(0) is media ID
+
 
         $user = $this->Messages->find('byUserID', [
-            'name' => $name
+            'name' => $userName
         ]);
 
         $this->set([
             'users' => $user,
-            'mid' => $mid
         ]);
 
 
@@ -76,9 +79,12 @@ class MessagesController extends AppController
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             if ($this->Messages->save($message)) {
+                global $mediaID;
                 $this->Flash->success(__('The message has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                $detailURL = "/media/detail/" .$mediaID;
+
+                return $this->redirect($this->Auth->redirectUrl($detailURL));
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
@@ -129,16 +135,5 @@ class MessagesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function sendMessage(){
-        $param = $this->request->getParam('pass');
-        $name = $param[(int) 0];
-        //die($userID);
-
-        $detail = $this->Messages->find('byUID', [
-            'name' => $name
-        ]);
-
     }
 }

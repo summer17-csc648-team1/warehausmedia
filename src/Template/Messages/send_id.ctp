@@ -38,11 +38,11 @@
 
     <?= $this->Form->hidden('MessageID', array(
         'type' => 'int',
-        'value' => 2,
+        'value' => 2,           //It's about DB column,  need to fix DB first
         'empty' => false
     ));?>
 
-    <a href="localhost:8765/media/detail/<?php echo $mid;?>"><?= $this->Form->button(__('Submit')) ?></a>
+    <?= $this->Form->button(__('Send')) ?>
     <?= $this->Form->end() ?>
 </div>
 
