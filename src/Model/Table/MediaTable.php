@@ -32,6 +32,7 @@ class MediaTable extends Table
         parent::initialize($config);
 
         $this->belongsTo('Categories');
+        $this->belongsTo('Users');
 
         $this->setTable('media');
         $this->setDisplayField('MediaID');
@@ -116,14 +117,15 @@ class MediaTable extends Table
         //die('test find by ID');
         $id = $options['id'];
 
+        $target = $this->find('all')
+            ->select(['Media.Title', 'Media.FileLocation','Media.Price', 'Media.user_id', 'Media.Description', 'Categories.Category', 'Users.Username'])
+            ->where(['Media.MediaID'=>$id])
+            ->leftJoinWith('Categories')
+            ->leftJoinWith('Users');
 
-        $target = $this->find()
-            ->select()
-            ->where(['MediaID'=>$id]);
+
 
         return $target;
-
-
     }
 
 }

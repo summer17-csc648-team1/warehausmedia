@@ -91,7 +91,7 @@ $this->layout = false;
     <li><a href="<?php echo Router::fullBaseUrl();?>">ABOUT US</a></li>
 
 </ul>
-<?php foreach ($detail as $target):?>
+<?php foreach ($detail as $target): ?>
 
 <div style="margin-left: 5%; margin-top: 5%">
     <div>
@@ -107,13 +107,13 @@ $this->layout = false;
                     <h1 id="title"><?php echo $target['Title']?></h1>
                 </tr>
                 <tr>
-                    <p id="category"> <b>Category: </b> <?php echo $target['Categories_Category_ID'];?></p>
+                    <p id="category"> <b>Category: </b> <?php echo $target['_matchingData']['Categories']['Category'];?></p>
                 </tr>
                 <tr>
                     <p id="price"><b>Price: </b> <?php echo '$'.$target['Price']; ?></p>
                 </tr>
                 <tr>
-                    <p id="owner"><b>Owner: </b> <?php echo $target['Users_UserID']?></p>
+                    <p id="owner"><b>Owner: </b> <?php echo $target['_matchingData']['Users']['Username']?></p>
                     <a href="#"><button >Contact Owner</button></a>
                 </tr>
 
