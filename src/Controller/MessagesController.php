@@ -13,6 +13,18 @@ use App\Controller\AppController;
 class MessagesController extends AppController
 {
 
+    public function sendMessage()
+    {
+        $param = $this->request->getParam('pass');
+        $name = $param[(int) 0];
+
+        $detail = $this->Messages->find('byUserID', [
+            'name' => $name
+        ]);
+
+        $this->set(['detail' => $detail]);
+    }
+
     /**
      * Index method
      *

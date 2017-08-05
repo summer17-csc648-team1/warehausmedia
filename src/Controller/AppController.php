@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 
+
 /**
  * Application Controller
  *
@@ -48,8 +49,8 @@ class AppController extends Controller
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
          */
-//        $this->loadComponent('Security');
-//        $this->loadComponent('Csrf');
+        //$this->loadComponent('Security');
+        //$this->loadComponent('Csrf');
         $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
@@ -63,11 +64,26 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
+
+
+
+
             'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
         ]);
         // Allow the display action so our pages controller
         // continues to work.
         $this->Auth->allow(['display']);
+
+    }
+
+
+
+
+    function beforeFilter(Event $event) //using it to pass value into default.ctp ?
+    {
+        parent::beforeFIlter($event);
+       // $user = $this->Auth->user();
+       // $this->set(‘userid’, $user[‘UserID’]);
     }
 
     /**
@@ -78,6 +94,8 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
+
+        $login = false;
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {

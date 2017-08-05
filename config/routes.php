@@ -43,7 +43,16 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+Router::scope('/messages',
+    ['controller'=>'Messages'],
+    function (RouteBuilder $routes){
+        $routes->connect('/messages/send/*', ['action' => 'sendMessage']);
+
+    });
+
 Router::scope('/', function (RouteBuilder $routes) {
+
+
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file

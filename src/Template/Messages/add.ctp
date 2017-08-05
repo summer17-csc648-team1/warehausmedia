@@ -12,12 +12,12 @@
     <?= $this->Form->input('Message', array(
         'label' => 'Message*:',
         'class'=> 'form-control',
-        'type' => 'textarea'
+        'type' => 'textArea'
     ));?>
 
     <?= $this->Form->hidden('User1', array(
         'type' => 'int',
-        'value' => 1,   // ! change 1  to user1 variable
+        'value' => 3,   // ! change 1  to user1 variable
         'empty' => false
     ));?>
 

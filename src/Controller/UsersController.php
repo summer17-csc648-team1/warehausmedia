@@ -4,6 +4,8 @@ namespace App\Controller;
 use Cake\Log\Log;
 use App\Controller\AppController;
 use Cake\Validation\Validation;
+use Cake\Event\Event;
+
 
 /**
  * Users Controller
@@ -79,6 +81,7 @@ class UsersController extends AppController
         
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
+            
             if ($user) {
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('Successfully logged in.'));
