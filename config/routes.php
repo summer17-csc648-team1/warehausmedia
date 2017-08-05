@@ -46,7 +46,7 @@ Router::defaultRouteClass(DashedRoute::class);
 Router::scope('/messages',
     ['controller'=>'Messages'],
     function (RouteBuilder $routes){
-        $routes->connect('/messages/send/*', ['action' => 'sendMessage']);
+        $routes->connect('/sendToUser/*', ['action' => 'sendId']);
 
     });
 

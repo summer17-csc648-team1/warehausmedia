@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\ORM\TableRegistry;
 /**
  * Messages Controller
  *
@@ -13,16 +13,23 @@ use App\Controller\AppController;
 class MessagesController extends AppController
 {
 
-    public function sendMessage()
+    public function sendId()
     {
         $param = $this->request->getParam('pass');
         $name = $param[(int) 0];
+        $mid = $param[(int) 1];
 
-        $detail = $this->Messages->find('byUserID', [
+        $user = $this->Messages->find('byUserID', [
             'name' => $name
         ]);
 
-        $this->set(['detail' => $detail]);
+        $this->set([
+            'users' => $user,
+            'mid' => $mid
+        ]);
+
+
+        $this->add();
     }
 
     /**
@@ -63,10 +70,9 @@ class MessagesController extends AppController
     public function add()
     {
         $user = $this->Auth->user();
-        $this->set('$user1id', $user['UserID']);
+        $this->set('user1', $user['UserID']);
 
         $message = $this->Messages->newEntity();
-        //debug($message);
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             if ($this->Messages->save($message)) {

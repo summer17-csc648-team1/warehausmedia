@@ -29,14 +29,4 @@ class Message extends Entity
         'User2' => true
     ];
 
-    public function findByUserID(Query $query, array $options)
-    {
-        $id = $options['id'];
-
-        $target = $this->find()
-            ->select()
-            ->where(['User2'=>$id]);
-
-        return $target;
-    }
 }
