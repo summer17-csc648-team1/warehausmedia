@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property string $Format
  * @property \Cake\I18n\FrozenTime $DateUploaded
  * @property float $Price
- * @property int $Categories_Category_ID
- * @property int $Users_UserID
+ * @property int $category_id
+ * @property int $user_id
  */
 class Media extends Entity
 {
@@ -31,7 +31,7 @@ class Media extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'MediaID' => false,
-        'Users_UserID' => false
+        'MediaID' => true,
+        'user_id' => true
     ];
 }
