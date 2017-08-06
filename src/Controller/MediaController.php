@@ -2,9 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use PhpParser\Node\Expr\Array_;
 use Cake\ORM\TableRegistry;
-
-
 
 /**
  * Media Controller
@@ -30,6 +29,40 @@ class MediaController extends AppController
 
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
+    }
+
+
+    public function searchByTitle($title)
+    {
+        $media = $this->paginate($this->Media);
+
+        $categories = TableRegistry::get(‘Categories’)->find(‘all’);
+
+        //create an array $filter
+        $filtered = array();
+
+        if( ($media[$title]['Categories_Category_ID'] == $categories['CategoryID']) != null)   //find item by specific category
+        {
+            foreach ($media[$title] as $item)
+            {
+                if ($item['Title'] == $title)     //Unsure whether $item['Title'] is correct / Or probably change to $item->Title
+                {
+                    array_push($filtered, $item);   //store specific column data into $filtered
+                }
+            }
+        }
+        else  //find item by All category
+        {
+            foreach ($media[$title] as $item)
+            {
+                if ($item['Title'] == $title)
+                {
+                    array_push($filtered, $item);   //store specific column data into $filtered
+                }
+            }
+        }
+
+        return $filtered;
     }
 
     /**
