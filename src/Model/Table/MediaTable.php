@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -29,6 +30,9 @@ class MediaTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
+
+        $this->belongsTo('Categories');
+        $this->belongsTo('Users');
 
         $this->setTable('media');
         $this->setDisplayField('MediaID');
@@ -81,4 +85,47 @@ class MediaTable extends Table
 
         return $validator;
     }
+
+    /**
+     * @param Query $query
+     * @param array $options
+     * User choose a category (can be empty) then type search string to search by title and category
+     * if category is empty/default, search by title only.
+     * Return all media found.
+     */
+    public function homeSearch(Query $query, array $options){
+        $Media = $this->find()
+            ->select(['MediaID','Title', 'FileLocation', 'ThumbnailLocation', 'DateUploaded', 'Price', 'Category', 'Username', 'Email'])
+            ->innerJoinWith('Users')
+            ->where(['Media.User_UserID'=>'User.UserID']);
+
+        if(!empty($options['category'])){
+            $Media
+                ->innerJoinWith('Categories')
+                ->where(['Media.Categories_Category_ID'=>'Categories.CategoryID']);
+        }
+
+        return $Media.group(['MediaID']);
+    }
+
+    public function findByTitle(Query $query, array $options){
+        die('test findByTitle');
+    }
+
+
+    public function findByID(Query $query, array $options){
+        //die('test find by ID');
+        $id = $options['id'];
+
+        $target = $this->find('all')
+            ->select(['Media.Title', 'Media.FileLocation','Media.Price', 'Media.user_id', 'Media.Description', 'Categories.Category', 'Users.Username'])
+            ->where(['Media.MediaID'=>$id])
+            ->leftJoinWith('Categories')
+            ->leftJoinWith('Users');
+
+
+
+        return $target;
+    }
+
 }
