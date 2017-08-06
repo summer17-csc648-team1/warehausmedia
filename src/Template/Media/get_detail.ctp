@@ -1,96 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: raymondlf
- * Date: 7/31/17
- * Time: 3:42 PM
- */
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Network\Exception\NotFoundException;
-use Cake\Routing\Router;
 $this->layout = 'default';
+$this->Html->css('home.css')
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: black;
-        }
-        li a {
-            float: right;
-        }
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        li a:hover:not(.active) {
-            color: white;
-            background-color: black;
-        }
-        img {
-            width:600px;
-        }
-        h3 {
-            margin-left: 50px;
-            margin-top: 50px;
-            margin:0;
-            padding:0;
-        }
-        table {
-            margin:0;
-            padding:0;
-        }
-        th, td {
-            margin:0;
-            padding:0;
-        }
-        .logo {
-            float: left;
-            position: relative;
-            margin: 0;
-            padding: 0;
-            display: block;
-            color: white;
-            background-color: red;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .active {
-            color: white;
-            background-color: red;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="site.css">
 </head>
 
 <body class="detail">
 
 <?php foreach ($detail as $target): ?>
-
-<div style="margin-left: 5%; margin-top: 5%">
-
+<div class="content">
     <table>
         <tr id="image_and_detail">
             <td><img id="preview" src="<?php echo $this->request->webroot.$target['FileLocation']?>"></td>
-
             <td>
                 <div style="float: left; margin-left: 10%;">
                     <table>
-
                         <tr>
                             <h1 id="title"><?php echo $target['Title']?></h1>
                         </tr>
@@ -104,9 +31,7 @@ $this->layout = 'default';
                             <p id="owner"><b>Owner: </b> <?php echo $target['_matchingData']['Users']['Username']?></p>
                             <a href="#"><button >Contact Owner</button></a>
                         </tr>
-
                     </table>
-
                 </div>
             </td>
         </tr>
@@ -122,6 +47,5 @@ $this->layout = 'default';
     </table>
 </div>
 <?php endforeach;?>
-
 </body>
 </html>
