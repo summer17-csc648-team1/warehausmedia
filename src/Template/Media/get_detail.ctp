@@ -62,7 +62,7 @@ $this->layout = 'default';
             position: relative;
             margin: 0;
             padding: 0;
-            diaplay: block;
+            display: block;
             color: white;
             background-color: red;
             text-align: center;
