@@ -45,12 +45,12 @@
           <li><a href="/media/add">UPLOAD</a></li>
             <?php if($this->request->session()->read('Auth')) { ?>
                 <li><a href="/pages/mystuff">MY STUFF</a></li>
-                <li><a href="/users/login">LOGOUT</a></li>
+                <li><a href="/users/logout">LOGOUT</a></li>
             <?php }
 
             else{ ?>
-                <li><a href="/users/login">LOGIN</a></li>
                 <li><a href="/pages/register">REGISTER</a></li>
+                <li><a href="/users/login">LOGIN</a></li>
 
             <?php } ?>
         </ul>

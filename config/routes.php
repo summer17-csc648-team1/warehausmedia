@@ -43,12 +43,29 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
-Router::scope('/users', function (RouteBuilder $routes){
-        $routes->connect('/dashboard', ['controller' => 'Users', 'action' => 'dashboard']);
+
+Router::scope('/users', function (RouteBuilder $routes) {
+    $routes->connect('/dashboard', ['controller' => 'Users', 'action' => 'dashboard']);
+});
+
+Router::scope('/messages',
+    ['controller'=>'Messages'],
+    function (RouteBuilder $routes){
+        $routes->connect('/add/*', ['action' => 'sendId']);
+
+    });
+
+Router::scope('/media',
+    ['controller' => 'Media'],
+    function (RouteBuilder $routes){
+
+        $routes->connect('/detail/*', ['action' => 'getDetail']);
     }
 );
 
 Router::scope('/', function (RouteBuilder $routes) {
+
+
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file
