@@ -1,4 +1,7 @@
 <?php
+
+use Cake\Routing\Router;
+
 $this->layout = 'default';
 $this->Html->css('home.css')
 ?>
@@ -29,7 +32,7 @@ $this->Html->css('home.css')
                         </tr>
                         <tr>
                             <p id="owner"><b>Owner: </b> <?php echo $target['_matchingData']['Users']['Username']?></p>
-                            <a href="#"><button >Contact Owner</button></a>
+                            <a href="<?php echo Router::fullBaseUrl()?>/messages/sendToUser/<?php echo $target['MediaID'];?>/<?php echo $target['user_id'];?>"><button >Contact Owner</button></a>
                         </tr>
                     </table>
                 </div>

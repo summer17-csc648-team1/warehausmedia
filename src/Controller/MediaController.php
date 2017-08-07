@@ -1,11 +1,7 @@
 <?php
 namespace App\Controller;
-
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-
-
-
 /**
  * Media Controller
  *
@@ -15,23 +11,17 @@ use Cake\ORM\TableRegistry;
  */
 class MediaController extends AppController
 {
-
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
-
-
-
     public function index()
     {
         $media = $this->paginate($this->Media);
-
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
     }
-
     /**
      * View method
      *
@@ -39,20 +29,14 @@ class MediaController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-
-
     public function view($id = null)
     {
         $media = $this->Media->get($id, [
             'contain' => []
         ]);
-
         $this->set('media', $media);
         $this->set('_serialize', ['media']);
-
-
     }
-
     /**
      * Add method
      *
@@ -62,7 +46,6 @@ class MediaController extends AppController
     {
         $user = $this->Auth->user();
         $this->set('userid', $user['UserID']);
-
         $category_array = array();
         //get Categories
         $categories = TableRegistry::get('Categories')->find('all');
@@ -71,9 +54,7 @@ class MediaController extends AppController
             $category_array[$category->CategoryID] = $category->Category;
         }
         $this->set(compact('category_array'));
-
         $media = $this->Media->newEntity();
-
         if ($this->request->is('post')) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
             $destination = 'Images/'; //webroot folder
@@ -81,7 +62,7 @@ class MediaController extends AppController
             $filetype = $media['upload']['type'];
             if($filetype == 'image/jpg' || $filetype == 'image/jpeg' || $filetype == 'image/png'){
                 if(move_uploaded_file($media['upload']['tmp_name'], WWW_ROOT.$destination.$filename)){
-                $media->FileLocation = 'Images/'.$filename; //store reference in db
+                    $media->FileLocation = 'Images/'.$filename; //store reference in db
                 }
                 if ($this->Media->save($media)) {
                     $this->Flash->success(__('The media has been saved.'));
@@ -96,7 +77,6 @@ class MediaController extends AppController
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
     }
-
     /**
      * Edit method
      *
@@ -113,7 +93,6 @@ class MediaController extends AppController
             $media = $this->Media->patchEntity($media, $this->request->getData());
             if ($this->Media->save($media)) {
                 $this->Flash->success(__('The media has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The media could not be saved. Please, try again.'));
@@ -121,7 +100,6 @@ class MediaController extends AppController
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
     }
-
     /**
      * Delete method
      *
@@ -138,20 +116,14 @@ class MediaController extends AppController
         } else {
             $this->Flash->error(__('The media could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
-
     public function getDetail(){
         $param = $this->request->getParam('pass');
-
         $id = $param[(int) 0];
-
-
         $detail = $this->Media->find('byID', [
             'id' => $id
         ]);
-
         $this->set(['detail' => $detail]);
     }
 }
