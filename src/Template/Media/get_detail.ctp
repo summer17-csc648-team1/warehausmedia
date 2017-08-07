@@ -29,7 +29,10 @@ $this->Html->css('home.css')
                         </tr>
                         <tr>
                             <p id="owner"><b>Owner: </b> <?php echo $target['_matchingData']['Users']['Username']?></p>
-                            <a href="#"><button >Contact Owner</button></a>
+
+                            <a href="/messages/add/<?php echo $target['_matchingData']['Users']['UserID'];?>/<?php echo $target['MediaID'];?>" >
+                                <button >Contact Owner</button>
+                            </a>
                         </tr>
                     </table>
                 </div>
