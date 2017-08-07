@@ -76,16 +76,6 @@ class AppController extends Controller
 
     }
 
-
-
-
-    function beforeFilter(Event $event) //using it to pass value into default.ctp ?
-    {
-        parent::beforeFIlter($event);
-       // $user = $this->Auth->user();
-       // $this->set(‘userid’, $user[‘UserID’]);
-    }
-
     /**
      * Before render callback.
      *
@@ -94,8 +84,6 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-
-        $login = false;
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
