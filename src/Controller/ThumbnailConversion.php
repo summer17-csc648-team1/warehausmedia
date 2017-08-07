@@ -4,14 +4,8 @@
 namespace App\Controller;
 
 
-function makeThumbnails($updir, $img, $id)
-{
-    $thumbnail_width = 134;
-    $thumbnail_height = 189;
-    $thumb_beforeword = "thumb";
-    $arr_image_details = getimagesize("$updir" . $id . '_' . "$img"); // pass id to thumb name
-    $original_width = $arr_image_details[0];
-    $original_height = $arr_image_details[1];
+function createThumbnail($filepath, $thumbpath, $thumbnail_width, $thumbnail_height, $background=false) {
+    list($original_width, $original_height, $original_type) = getimagesize($filepath);
     if ($original_width > $original_height) {
         $new_width = $thumbnail_width;
         $new_height = intval($original_height * $new_width / $original_width);
@@ -21,22 +15,36 @@ function makeThumbnails($updir, $img, $id)
     }
     $dest_x = intval(($thumbnail_width - $new_width) / 2);
     $dest_y = intval(($thumbnail_height - $new_height) / 2);
-    if ($arr_image_details[2] == IMAGETYPE_GIF) {
+
+    if ($original_type === 1) {
         $imgt = "ImageGIF";
         $imgcreatefrom = "ImageCreateFromGIF";
-    }
-    if ($arr_image_details[2] == IMAGETYPE_JPEG) {
+    } else if ($original_type === 2) {
         $imgt = "ImageJPEG";
         $imgcreatefrom = "ImageCreateFromJPEG";
-    }
-    if ($arr_image_details[2] == IMAGETYPE_PNG) {
+    } else if ($original_type === 3) {
         $imgt = "ImagePNG";
         $imgcreatefrom = "ImageCreateFromPNG";
+    } else {
+        return false;
     }
-    if ($imgt) {
-        $old_image = $imgcreatefrom("$updir" . $id . '_' . "$img");
-        $new_image = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
-        imagecopyresampled($new_image, $old_image, $dest_x, $dest_y, 0, 0, $new_width, $new_height, $original_width, $original_height);
-        $imgt($new_image, "$updir" . $id . '_' . "$thumb_beforeword" . "$img");
+
+    $old_image = $imgcreatefrom($filepath);
+    $new_image = imagecreatetruecolor($thumbnail_width, $thumbnail_height); // creates new image, but with a black background
+
+    // figuring out the color for the background
+    if(is_array($background) && count($background) === 3) {
+        list($red, $green, $blue) = $background;
+        $color = imagecolorallocate($new_image, $red, $green, $blue);
+        imagefill($new_image, 0, 0, $color);
+        // apply transparent background only if is a png image
+    } else if($background === 'transparent' && $original_type === 3) {
+        imagesavealpha($new_image, TRUE);
+        $color = imagecolorallocatealpha($new_image, 0, 0, 0, 127);
+        imagefill($new_image, 0, 0, $color);
     }
+
+    imagecopyresampled($new_image, $old_image, $dest_x, $dest_y, 0, 0, $new_width, $new_height, $original_width, $original_height);
+    $imgt($new_image, $thumbpath);
+    return file_exists($thumbpath);
 }
