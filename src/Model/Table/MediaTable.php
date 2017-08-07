@@ -118,7 +118,7 @@ class MediaTable extends Table
         $id = $options['id'];
 
         $target = $this->find('all')
-            ->select(['Media.Title', 'Media.FileLocation','Media.Price', 'Users.UserID', 'Media.Description', 'Categories.Category', 'Users.Username'])
+            ->select(['Media.MediaID', 'Media.Title', 'Media.FileLocation','Media.Price', 'Users.UserID', 'Media.Description', 'Categories.Category', 'Users.Username'])
             ->where(['Media.MediaID'=>$id])
             ->leftJoinWith('Categories')
             ->leftJoinWith('Users');

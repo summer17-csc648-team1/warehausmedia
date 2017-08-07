@@ -1,16 +1,13 @@
 <?php
-/**
- * @var \App\View\AppView $this
- */
+$this->layout = 'default';
+$this->Html->css('home.css')
 ?>
 
 <?php foreach ($users as $user):?>
 <div class="index large-4 medium-4 large-offset-4 medium-offset-4 columns content">
     <?= $this->Form->create(); ?>
     <br><br>
-    <h1><?php echo "To:    ".$user['Username']; ?></h1>
-
-    <br><br>
+    <h3><?php echo "To: ".$user['Username']; ?></h3>
     <?= $this->Form->input('Message', array(
         'label' => 'Message*:',
         'class'=> 'form-control',
@@ -33,12 +30,6 @@
     <?= $this->Form->hidden('Date', array(
         'type' => 'datetime',
         'value' => date("Y-m-d H:i:s"),
-        'empty' => false
-    ));?>
-
-    <?= $this->Form->hidden('MessageID', array(
-        'type' => 'int',
-        'value' => 2,           //It's about DB column,  need to fix DB first
         'empty' => false
     ));?>
 

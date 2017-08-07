@@ -19,12 +19,11 @@ class MessagesController extends AppController
     {
         global $mediaID;
         $param = $this->request->getParam('pass');
-        $userName = $param[(int) 1];  //array(1) is user ID
-        $mediaID = $param[(int) 0];   //array(0) is media ID
-
+        $userID = $param[(int) 0];  //array(0) is user ID
+        $mediaID = $param[(int) 1];   //array(1) is media ID
 
         $user = $this->Messages->find('byUserID', [
-            'name' => $userName
+            'name' => $userID
         ]);
 
         $this->set([

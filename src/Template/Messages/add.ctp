@@ -1,13 +1,12 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+$this->layout = 'default';
+$this->Html->css('home.css')
 ?>
 
 <div class="index large-4 medium-4 large-offset-4 medium-offset-4 columns content">
     <?= $this->Form->create(); ?>
     <br><br>
-    <h1><?php echo "To: John"; ?></h1>
+    <h3><?php echo "To:    ".$user['Username']; ?></h3>
     <br><br>
     <?= $this->Form->input('Message', array(
         'label' => 'Message*:',
@@ -17,14 +16,14 @@
 
     <?= $this->Form->hidden('User1', array(
         'type' => 'int',
-        'value' => 3,   // ! change 1  to user1 variable
+        'value' => $user1,
         'empty' => false
     ));?>
 
 
     <?= $this->Form->hidden('User2', array(
         'type' => 'int',
-        'value' => 2, // ! change 2 to user2 variable
+        'value' => $user['UserID'],
         'empty' => false
     ));?>
 
