@@ -1,4 +1,7 @@
 <?php
+
+use Cake\Routing\Router;
+
 $this->layout = 'default';
 $this->Html->css('home.css')
 ?>
