@@ -24,6 +24,7 @@ use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
 
+$this->layout = 'default';
 $title = 'Home';
 $categories = TableRegistry::get('Categories')->find('all');
 foreach ($categories as $category) {
@@ -34,23 +35,15 @@ $this->set(compact('category_array'))
 <!DOCTYPE html>
 <html>
 <head>
-
   <?= $this->Html->charset() ?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
   <title>
-      <?= $this->fetch('title') ?>
+    <?= $title ?>
   </title>
-  <?= $this->Html->meta('icon') ?>
 
-  <?= $this->Html->css('base.css') ?>
-  <?= $this->Html->css('cake.css') ?>
   <?= $this->Html->css('home.css') ?>
-
-  <?= $this->fetch('meta') ?>
-  <?= $this->fetch('css') ?>
-  <?= $this->fetch('script') ?>
-<?= $this->fetch('menu') ?>
-  </head>
 </head>
 
 
@@ -58,18 +51,19 @@ $this->set(compact('category_array'))
 
 
 <body>
-  <div class="jumbotron">
 
-    <h1> WAREHAUS</h1>
-      <div style="width: 100%; overflow: hidden;">
-      <div style="text-align: center; width: 90%; padding: 0 0 0 10%; margin: 0; height: 25px; overflow: hidden;">
-            CSC 648/848 Team 1
-        </div>
-      <ul text-align="center"> (For Demonstration Purposes only)</ul>
-      </div>
-  </div>
 
 <div class="container" text-align="center">
+  <h1> WAREHAUS</h1>
+      <div style="width: 100%; overflow: hidden;">
+      <div style="text-align: center; width: 90%; padding: 0 0 0 10%; margin: 0; height: 25px; overflow: hidden;">
+            CSC  648/848 Team 1
+            (For Demonstration Purposes only)
+        </div>
+
+      </div>
+
+
 
 </div>
   <div class="content">

@@ -5,16 +5,12 @@ body{
 h1 {
   font-size: 72px;
   text-align: center;
-  color: black;
+  color: #e51212;
 }
 
 header h2 {
   font-size: 24px;
   font-style: italic;
-}
-
-h3 {
-  color: black;
 }
 
 .content {
@@ -39,22 +35,6 @@ align-items: center;
 margin:0 auto;
 }
 .b{
-  align-items: center;
+  an-items: center;
   margin:0 auto;
-}
-.jumbotron{
-  text-align: center;
-  background-color: #e51212;
-  font-family:"Lucida Console", Monaco, monospace;
-background: linear-gradient(#e51212, #8e0b0b);
-
-}
-button{
-  background: linear-gradient(lightgrey,grey,darkgrey);
-margin: 0 auto;
-align-items: center;
-widthL 30%;
-}
-button:hover{
-    background: linear-gradient(#e51212,#8e0b0b, #8e0b0b);
 }

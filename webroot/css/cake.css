@@ -38,7 +38,18 @@ header .header-title {
   padding-right: 300px;
   border: none;
 }
+.h3{
+  color: red;
+  color:inherit;
 
+}
+
+button:hover{
+    background: linear-gradient(#e51212,#8e0b0b, #8e0b0b);
+}
+body{
+  background: linear-gradient(#ffff,#ffff, #ffff);
+}
 .panel-default{
   background-color: white;
 }
@@ -412,6 +423,7 @@ fieldset legend {
     float: right;
     text-transform: uppercase;
     box-shadow: none;
+    background: linear-gradient(lightgrey,grey,darkgrey);
 }
 
 .form button:hover, .form button:focus {
@@ -420,7 +432,7 @@ fieldset legend {
 }
 
 button {
-    background: #966600;
+    background: linear-gradient(lightgrey,grey,darkgrey);
 }
 
 div.message {

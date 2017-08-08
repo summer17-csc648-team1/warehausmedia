@@ -17,34 +17,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><?= $this->fetch('title') ?></title>
-  <?php
-    echo $this->fetch('meta');
-    echo $this->fetch('css');
-    echo $this->fetch('script');
-    ?>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-</head>
+  <?= $this->Html->charset() ?>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+      <?= $this->fetch('title') ?>
+  </title>
+  <?= $this->Html->meta('icon') ?>
+
+  <?= $this->Html->css('base.css') ?>
+  <?= $this->Html->css('cake.css') ?>
+  <?= $this->Html->css('home.css') ?>
+
+  <?= $this->fetch('meta') ?>
+  <?= $this->fetch('css') ?>
+  <?= $this->fetch('script') ?>
+
+  </head>
 <body>
 
   <nav class="top-bar expanded" data-topbar role="navigation">
-          <?php  $homepage = "/pages/home"; ?>
-          <?php  $currpage = $_SERVER['REQUEST_URI']; ?>
-          <?php  if($homepage == $currpage){ ?>
-
-          <?php  }
-          else{ ?>
             <ul class="title-area large-3 medium-4 columns">
             <li class="name">
             <h1><a href="/pages/home">WAREHAUS</a></h1>
             </li>
             </ul>
-          <?php  }?>
-
-
 
         <div class="top-bar-section">
         <ul class="right">
@@ -56,7 +53,7 @@
             <?php }
 
             else{ ?>
-                <li><a href="/pages/register">REGISTER</a></li>
+                <li><a href="/users/add">REGISTER</a></li>
                 <li><a href="/users/login">LOGIN</a></li>
 
             <?php } ?>
