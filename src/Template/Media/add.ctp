@@ -42,8 +42,8 @@
                                            'empty' => false
                                     ));?>
             
-            
-        <?= $this->Form->submit('Create Product', array('class' => 'btn btn-primary')); ?>    
+           
+        <?= $this->Form->submit('Create Product', array('class' => 'btn btn-primary')); ?>
         <?= $this->Form->end(); ?>
         
         </div>
