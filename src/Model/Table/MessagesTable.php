@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -59,5 +60,15 @@ class MessagesTable extends Table
             ->allowEmpty('Date');
 
         return $validator;
+    }
+
+    public function findByUserID(Query $query, array $options){
+        $id = $options['name'];
+        $userTable = TableRegistry::get('Users');
+
+        $user = $userTable->find()
+            ->select()
+            ->where(['UserID'=>$id]);
+        return $user;
     }
 }
