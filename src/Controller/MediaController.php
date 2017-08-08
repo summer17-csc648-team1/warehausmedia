@@ -80,7 +80,7 @@ class MediaController extends AppController {
                 }
                 if ($this->Media->save($media)) {
                     $this->Flash->success(__('The media has been saved.'));
-                    return $this->redirect($this->Auth->redirectUrl("/media/detail" . $media->MedaID));
+                    return $this->redirect($this->Auth->redirectUrl("/media/detail/" . $media->MediaID));
                 } else {
                     $this->Flash->error(__('The media could not be saved. Please, try again.'));
                 }
@@ -182,9 +182,7 @@ class MediaController extends AppController {
 
     public function getDetail(){
         $param = $this->request->getParam('pass');
-
         $id = $param[(int) 0];
-
 
         $detail = $this->Media->find('byID', [
             'id' => $id
