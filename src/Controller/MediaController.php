@@ -74,7 +74,7 @@ class MediaController extends AppController {
             if ($filetype == 'image/jpg' || $filetype == 'image/jpeg' || $filetype == 'image/png') {
                 if (move_uploaded_file($media['upload']['tmp_name'], WWW_ROOT . $destination . $filename)) {
                     $media->FileLocation = 'Images/' . $filename; //store reference in db
-                    $media->ThumbnailLocation = 'Images/' . 'Thumbnail-' . $filename;
+                    $media->ThumbnailLocation = 'Images/' . 'Tb-' . $filename;
                     $media->Format = explode("/", $filetype)[1];
                     $this->createThumbnail(WWW_ROOT . $media->FileLocation, WWW_ROOT . $media->ThumbnailLocation, 180, 180);
                 }
