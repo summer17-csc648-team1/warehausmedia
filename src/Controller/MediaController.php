@@ -135,7 +135,7 @@ class MediaController extends AppController {
         return $this->redirect(['action' => 'index']);
     }
 
-    //This code was pulled from stackoverflow.
+    //This code was pulled from stackoverflow by Josh. The following method resizes the photo before upload.
     function createThumbnail($filepath, $thumbpath, $thumbnail_width, $thumbnail_height, $background = false) {
         list($original_width, $original_height, $original_type) = getimagesize($filepath);
         if ($original_width > $original_height) {
