@@ -1,4 +1,7 @@
-<?php $this->layout = 'default';?>
+<?php
+$this->layout = 'default';
+$this->Html->css('home.css');
+?>
 
 <!DOCTYPE html>
 <html>
@@ -47,8 +50,5 @@
         <?= $this->Form->end(); ?>
         
         </div>
-
-
     </body>
 </html>
-
