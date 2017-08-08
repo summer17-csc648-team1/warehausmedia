@@ -68,6 +68,11 @@ class UsersTable extends Table
     public function findMyStuffs(Query $query, array $options){
         $userID = $options['userID'];
 
+//        //get username
+//        $users = TableRegistry::get("users");
+//        $Username = $users->find()
+//            ->where(['User1' => $userID]);
+
         //get messages
         $messages = TableRegistry::get('messages');
         $msgToMe = $messages->find()
