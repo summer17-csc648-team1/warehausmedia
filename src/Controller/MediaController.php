@@ -15,14 +15,11 @@ use Cake\ORM\TableRegistry;
  */
 class MediaController extends AppController
 {
-
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
-
-
 
     public function index()
     {
@@ -40,7 +37,6 @@ class MediaController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
 
-
     public function view($id = null)
     {
         $media = $this->Media->get($id, [
@@ -49,8 +45,6 @@ class MediaController extends AppController
 
         $this->set('media', $media);
         $this->set('_serialize', ['media']);
-
-
     }
 
     /**
@@ -153,5 +147,10 @@ class MediaController extends AppController
         ]);
 
         $this->set(['detail' => $detail]);
+    }
+
+    public function search(){
+        $param = $this->request->getParam('pass');
+        debug($param);
     }
 }

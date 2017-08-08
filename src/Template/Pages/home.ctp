@@ -23,7 +23,6 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-
 $this->layout = 'default';
 $title = 'Home';
 
@@ -54,30 +53,25 @@ $this->set(compact('category_array'))
             </div>
         </div>
 
-        <div class="content">
+        <div style="padding: 30px; width: 100%; background-color: green; align: center;" >
             <h3>Search</h3>
-            <form class="form-inline">
-            <?= $this->Form->create(); ?>
-            <div class="category">
-                <?= $this->Form->input('category', array(
-                    'label' => 'Category',
-                    'type' => 'select',
-                    'options' => h($category_array),
-                    'empty' => false)); ?>
+            <?php echo $this->Form->create(null, [
+                'url' => ['controller' => 'Media', 'action' => 'search']
+            ]); ?>
+            <span style="width: 25%; float: left; display: inline-block;"><?php echo $this->Form->input('Media.CategoryID', array(
+                  'label' => 'Category',
+                  'type' => 'select',
+                  'options' => h($category_array),
+                  'empty' => false
+            )); ?></span>
+            <span style="width: 50%; display: inline-block;"><?php echo $this->Form->input('search_input', array(
+                  'label' => 'Title'
+            )); ?>
+            <div style="float: right;">
+              <?php echo $this->Form->button('Search'); ?>
             </div>
-            <div class="searchbar">
-                <?= $this->Form->input('search_input', array(
-                      'label' => 'Title')); ?>
-            </div>
-            <div class='b'>
-                <?= $this->Form->button('Search',  array(
-                    'formaction' => Router::url(array(
-                        'controller' => 'Media',
-                        'action' => 'searchByTitle',
-                        'category' => 'category',
-                        'title' => 'search_input')))); ?>
-            </div>
-            <?= $this->Form->end(); ?>
+            <?php echo $this->Form->end(); ?>
+            <?php  ?>
         </div>
     </body>
 </html>
