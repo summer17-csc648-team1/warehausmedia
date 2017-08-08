@@ -23,7 +23,7 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-$this->layout = 'default';
+
 $title = 'Home';
 $categories = TableRegistry::get('Categories')->find('all');
 foreach ($categories as $category) {
@@ -34,44 +34,72 @@ $this->set(compact('category_array'))
 <!DOCTYPE html>
 <html>
 <head>
+
   <?= $this->Html->charset() ?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    <?= $title ?>
+      <?= $this->fetch('title') ?>
   </title>
+  <?= $this->Html->meta('icon') ?>
 
+  <?= $this->Html->css('base.css') ?>
+  <?= $this->Html->css('cake.css') ?>
   <?= $this->Html->css('home.css') ?>
+
+  <?= $this->fetch('meta') ?>
+  <?= $this->fetch('css') ?>
+  <?= $this->fetch('script') ?>
+<?= $this->fetch('menu') ?>
+  </head>
 </head>
 
-<header>
-  <div>
-    <h1>CSC 648 | Team One</h1>
-  </div>
-  <div>
-    <h2>For demonstration purposes only</h2>
-  </div>
-</header>
+
+
+
 
 <body>
+  <div class="jumbotron">
+
+    <h1> WAREHAUS</h1>
+      <div style="width: 100%; overflow: hidden;">
+      <div style="text-align: center; width: 90%; padding: 0 0 0 10%; margin: 0; height: 25px; overflow: hidden;">
+            CSC 648/848 Team 1
+        </div>
+      <ul text-align="center"> (For Demonstration Purposes only)</ul>
+      </div>
+  </div>
+
+<div class="container" text-align="center">
+
+</div>
   <div class="content">
-    <h3>Search by Title</h3>
+    <h3>Search</h3>
+<form class="form-inline">
     <?= $this->Form->create(); ?>
-    <?= $this->Form->input('category', array(
+    <div class="category">
+        <?= $this->Form->input('category', array(
           'label' => 'Category',
           'type' => 'select',
           'options' => h($category_array),
           'empty' => false
         )); ?>
-    <?= $this->Form->input('search_input', array(
-          'label' => 'Title'
-    )); ?>
+      </div>
+        <div class="searchbar">
+        <?= $this->Form->input('search_input', array(
+              'label' => 'Title'
+                )); ?>
+                </form>
+              </div>
+              <div class='b'>
     <?= $this->Form->button('Search',  array(
             'formaction' => Router::url(
               array('controller' => 'Media',
                     'action' => 'searchByTitle',
                     'category' => 'category',
                     'title' => 'search_input')))); ?>
+                  </div>
     <?= $this->Form->end(); ?>
+
   </div>
 </body>
 </html>

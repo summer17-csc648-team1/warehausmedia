@@ -1,10 +1,11 @@
-header {
-  height: auto;
-  padding: 32px;
-}
 
-header h1 {
-  font-size: 48px;
+body{
+
+}
+h1 {
+  font-size: 72px;
+  text-align: center;
+  color: black;
 }
 
 header h2 {
@@ -17,6 +18,43 @@ h3 {
 }
 
 .content {
-  padding: 32px;
+  padding-top: 0px;
+
+  text-align: center;
+  overflow: hidden;
+  display: inline;
   width: 50%;
+  margin: 0 auto;
+}
+
+.category{
+ width:30%;
+ align-items: center;
+ margin: 0 auto;
+}
+.searchbar{
+
+width: 50%;
+align-items: center;
+margin:0 auto;
+}
+.b{
+  align-items: center;
+  margin:0 auto;
+}
+.jumbotron{
+  text-align: center;
+  background-color: #e51212;
+  font-family:"Lucida Console", Monaco, monospace;
+background: linear-gradient(#e51212, #8e0b0b);
+
+}
+button{
+  background: linear-gradient(lightgrey,grey,darkgrey);
+margin: 0 auto;
+align-items: center;
+widthL 30%;
+}
+button:hover{
+    background: linear-gradient(#e51212,#8e0b0b, #8e0b0b);
 }
