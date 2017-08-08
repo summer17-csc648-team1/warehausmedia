@@ -16,59 +16,48 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?= $this->fetch('title') ?></title>
 
-  <?= $this->Html->charset() ?>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-      <?= $this->fetch('title') ?>
-  </title>
-  <?= $this->Html->meta('icon') ?>
+        <?= $this->Html->meta('icon') ?>
 
-  <?= $this->Html->css('base.css') ?>
-  <?= $this->Html->css('cake.css') ?>
-  <?= $this->Html->css('home.css') ?>
+        <?= $this->Html->css('base.css') ?>
+        <?= $this->Html->css('cake.css') ?>
+        <?= $this->Html->css('home.css') ?>
 
-  <?= $this->fetch('meta') ?>
-  <?= $this->fetch('css') ?>
-  <?= $this->fetch('script') ?>
+        <?= $this->fetch('meta') ?>
+        <?= $this->fetch('css') ?>
+        <?= $this->fetch('script') ?>
+    </head>
 
-  </head>
-<body>
-
-  <nav class="top-bar expanded" data-topbar role="navigation">
+    <body>
+        <nav class="top-bar expanded" data-topbar role="navigation">
             <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-            <h1><a href="/pages/home">WAREHAUS</a></h1>
-            </li>
+                <li class="name">
+                    <h1><a href="/pages/home">WAREHAUS</a></h1>
+                </li>
             </ul>
 
-        <div class="top-bar-section">
-        <ul class="right">
-          <li><a href="/pages/about">ABOUT US</a></li>
-          <li><a href="/pages/message">MESSAGE</a></li>
-          <li><a href="/media/add">UPLOAD</a></li>
-            <?php if($this->request->session()->read('Auth')) { ?>
-                <li><a href="/users/logout">LOGOUT</a></li>
-            <?php }
+            <div class="top-bar-section">
+                <ul class="right">
+                    <li><a href="/media/add">UPLOAD</a></li>
+                    <?php if($this->request->session()->read('Auth')) { ?>
+                        <li><a href="/users/logout">LOGOUT</a></li>
+                    <?php }
+                    else{ ?>
+                        <li><a href="/users/add">REGISTER</a></li>
+                        <li><a href="/users/login">LOGIN</a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </nav>
 
-            else{ ?>
-                <li><a href="/users/add">REGISTER</a></li>
-                <li><a href="/users/login">LOGIN</a></li>
-
-            <?php } ?>
-        </ul>
+        <div class="container clearfix">
+            <?= $this->fetch('content') ?>
         </div>
-    </nav>
 
-
-
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-
-
-    <footer></footer>
-
-</body>
+        <footer></footer>
+    </body>
 </html>
