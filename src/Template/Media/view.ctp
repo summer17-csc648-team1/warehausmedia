@@ -50,7 +50,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Users UserID') ?></th>
-            <td><?= $this->Number->format($media->Users_UserID) ?></td>
+            <td><?= $this->Number->format($media->user_id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('DateUploaded') ?></th>

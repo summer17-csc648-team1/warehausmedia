@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-
+use Cake\Datasource\EntityInterface;
+use Cake\Log\Log;
 /**
  * Media Controller
  *
@@ -21,7 +22,7 @@ class MediaController extends AppController {
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow('index');
+        $this->Auth->allow(['index','add']);
     }
 
     public function index() {
@@ -39,10 +40,11 @@ class MediaController extends AppController {
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null) {
-        $media = $this->Media->get($id, [
-            'contain' => []
-        ]);
-
+        $media = $this->Media
+            ->find()
+            ->where((['MediaID' => $id]))
+            ->toArray()[0];
+        Log::debug($media);
         $this->set('media', $media);
         $this->set('_serialize', ['media']);
     }
@@ -100,9 +102,11 @@ class MediaController extends AppController {
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null) {
-        $media = $this->Media->get($id, [
-            'contain' => []
-        ]);
+        $media = $this->Media
+            ->find()
+            ->where(['MediaID =' => $id])
+            ->toArray()[0];
+        Log::debug($media);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
             if ($this->Media->save($media)) {
@@ -125,7 +129,11 @@ class MediaController extends AppController {
      */
     public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
-        $media = $this->Media->get($id);
+        $media = $this->Media
+            ->find()
+            ->where(['MediaID =' => $id])
+            ->toArray()[0];
+
         if ($this->Media->delete($media)) {
             $this->Flash->success(__('The media has been deleted.'));
         } else {
@@ -189,6 +197,23 @@ class MediaController extends AppController {
         ]);
 
         $this->set(['detail' => $detail]);
+    }
+    public function isAuthorized($user)
+    {
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'index' ) {
+            return true;
+        }
+
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+            $articleId = (int)$this->request->getParam('pass.0');
+            if ($this->Media->isOwnedBy($articleId, $user['UserID'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
     
 }
