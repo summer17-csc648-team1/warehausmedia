@@ -58,6 +58,9 @@
             <?= $this->fetch('content') ?>
         </div>
 
-        <footer></footer>
+        <footer align ="center">
+        (For Demonstration Purposes only)</footer>
+
+
     </body>
 </html>
