@@ -20,7 +20,7 @@ class MediaController extends AppController {
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow('index', 'search', 'view');
+        $this->Auth->allow(['index', 'search']);
     }
 
     public function index() {
