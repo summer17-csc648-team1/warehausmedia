@@ -25,7 +25,15 @@ $this->Html->css('home.css')
 
                 <?php foreach ($messages as $msg): ?>
                     <tr>
-                        <td><?php echo $msg['User1']; ?></td>
+                        <td>
+                            <?php
+                                $users = \Cake\ORM\TableRegistry::get('users');
+                                $user1 = $users->find('all')->select()->where(['UserID'=>$msg['User1']]);
+                                foreach ($user1 as $sender){
+                                    echo $sender['Username'];
+                                }
+                            ?>
+                        </td>
                         <td><?php echo $msg['Message']; ?></td>
                     </tr>
                 <?php endforeach;?>
