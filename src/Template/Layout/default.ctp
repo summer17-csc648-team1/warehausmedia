@@ -30,6 +30,7 @@
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+<? php include_once("analyticstracking.php") ?>
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
