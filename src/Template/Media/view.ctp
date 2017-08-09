@@ -45,8 +45,8 @@
             <td><?= $this->Number->format($media->Price) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Categories Category ID') ?></th>
-            <td><?= $this->Number->format($media->Categories_Category_ID) ?></td>
+            <th scope="row"><?= __('Category_ID') ?></th>
+            <td><?= $this->Number->format($media->category_id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Users UserID') ?></th>
@@ -55,6 +55,10 @@
         <tr>
             <th scope="row"><?= __('DateUploaded') ?></th>
             <td><?= h($media->DateUploaded) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Description') ?></th>
+            <td><?= h($media->Description) ?></td>
         </tr>
     </table>
 </div>

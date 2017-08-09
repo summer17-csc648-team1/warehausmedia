@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
-
 use App\Controller\AppController;
-
+use Cake\ORM\TableRegistry;
 /**
  * Media Controller
  *
@@ -12,7 +11,6 @@ use App\Controller\AppController;
  */
 class MediaController extends AppController
 {
-
     /**
      * Index method
      *
@@ -21,11 +19,9 @@ class MediaController extends AppController
     public function index()
     {
         $media = $this->paginate($this->Media);
-
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
     }
-
     /**
      * View method
      *
@@ -38,11 +34,9 @@ class MediaController extends AppController
         $media = $this->Media->get($id, [
             'contain' => []
         ]);
-
         $this->set('media', $media);
         $this->set('_serialize', ['media']);
     }
-
     /**
      * Add method
      *
@@ -50,20 +44,39 @@ class MediaController extends AppController
      */
     public function add()
     {
+        $user = $this->Auth->user();
+        $this->set('userid', $user['UserID']);
+        $category_array = array();
+        //get Categories
+        $categories = TableRegistry::get('Categories')->find('all');
+        foreach ($categories as $category)
+        {
+            $category_array[$category->CategoryID] = $category->Category;
+        }
+        $this->set(compact('category_array'));
         $media = $this->Media->newEntity();
         if ($this->request->is('post')) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
-            if ($this->Media->save($media)) {
-                $this->Flash->success(__('The media has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            $destination = 'Images/'; //webroot folder
+            $filename = $media['upload']['name'];
+            $filetype = $media['upload']['type'];
+            if($filetype == 'image/jpg' || $filetype == 'image/jpeg' || $filetype == 'image/png'){
+                if(move_uploaded_file($media['upload']['tmp_name'], WWW_ROOT.$destination.$filename)){
+                    $media->FileLocation = 'Images/'.$filename; //store reference in db
+                }
+                if ($this->Media->save($media)) {
+                    $this->Flash->success(__('The media has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }else{
+                    $this->Flash->error(__('The media could not be saved. Please, try again.'));
+                }
+            }else{
+                $this->Flash->error(__('Sorry, we only support .jpg and .png file types'));
             }
-            $this->Flash->error(__('The media could not be saved. Please, try again.'));
         }
         $this->set(compact('media'));
         $this->set('_serialize', ['media']);
     }
-
     /**
      * Edit method
      *
@@ -73,22 +86,33 @@ class MediaController extends AppController
      */
     public function edit($id = null)
     {
-        $media = $this->Media->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $media = $this->Media->patchEntity($media, $this->request->getData());
-            if ($this->Media->save($media)) {
-                $this->Flash->success(__('The media has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            //Query for the correct MediaID
+            if($id != null) {
+                $media = $this
+                    ->Media
+                    ->find()
+                    ->where(['MediaID =' => $id])
+                    ->toArray()[0];
             }
-            $this->Flash->error(__('The media could not be saved. Please, try again.'));
-        }
-        $this->set(compact('media'));
-        $this->set('_serialize', ['media']);
-    }
 
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $data = $this->request->getData();
+                //Add UserID
+                $data["user_id"] = $this->Auth->user('UserID');
+
+                if($data["user_id"] == null) {
+                    $this->Flash->error(__('Please Log in.'));
+                }
+                if ($this->Media->save($media)) {
+                    $this->Flash->success(__('The media has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The media could not be saved. Please, try again.'));
+            }
+            $this->set(compact('media'));
+            $this->set('_serialize', ['media']);
+    }
     /**
      * Delete method
      *
@@ -99,7 +123,15 @@ class MediaController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $media = $this->Media->get($id);
+
+        if($id != null) {
+            $media = $this
+                ->Media
+                ->find()
+                ->where(['MediaID =' => $id])
+                ->toArray()[0];
+        }
+
         if ($this->Media->delete($media)) {
             $this->Flash->success(__('The media has been deleted.'));
         } else {
@@ -107,5 +139,35 @@ class MediaController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    public function getDetail()
+    {
+        $param = $this->request->getParam('pass');
+        $id = $param[(int)0];
+        $detail = $this->Media->find('byID', [
+            'id' => $id
+        ]);
+        $this->set(['detail' => $detail]);
+    }
+
+    public function isAuthorized($user)
+    {
+        // All registered users can add articles
+        if ($this->request->getParam('action') === 'add') {
+            return true;
+        }
+        if ($this->request->getParam('action') === 'index') {
+            return true;
+        }
+        // The owner of an article can edit and delete it
+        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+            $MediaId = (int)$this->request->getParam('pass.0');
+            if ($this->Media->isOwnedBy($MediaId, $user['UserID'])) {
+
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 }

@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Log\Log;
 
 /**
  * Media Model
@@ -30,7 +31,7 @@ class MediaTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('media');
+        $this->setTable('Media');
         $this->setDisplayField('MediaID');
         $this->setPrimaryKey(['MediaID', 'user_id']);
     }
@@ -45,7 +46,8 @@ class MediaTable extends Table
     {
         $validator
             ->integer('MediaID')
-            ->allowEmpty('MediaID', 'create');
+            ->allowEmpty('MediaID', 'create')
+            ->allowEmpty('MediaID', 'update');
 
         $validator
             ->allowEmpty('Title');
@@ -77,8 +79,13 @@ class MediaTable extends Table
 
         $validator
             ->integer('user_id')
-            ->allowEmpty('user_id', 'create');
+            ->notEmpty('user_id', 'create');
 
         return $validator;
+    }
+    public function isOwnedBy($MediaId, $userId)
+    {
+
+        return $this->exists(['MediaID' => $MediaId, 'user_id' => $userId]);
     }
 }

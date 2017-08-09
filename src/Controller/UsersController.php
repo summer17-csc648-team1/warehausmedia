@@ -20,7 +20,7 @@ class UsersController extends AppController
         parent::initialize();
 
         //Allow users to access register page
-        $this->Auth->allow(['add']);
+        $this->Auth->allow(['add','logout']);
     }
     /**
      * Index method
@@ -89,7 +89,10 @@ class UsersController extends AppController
             }
         }
     }
-
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
     /**
      * Edit method
      *

@@ -27,8 +27,14 @@
             echo $this->Form->control('Format');
             echo $this->Form->control('DateUploaded', ['empty' => true]);
             echo $this->Form->control('Price');
-            echo $this->Form->control('Categories_Category_ID');
+            echo $this->Form->control('Description');
         ?>
+            <div class="input text">
+                <label for="category_id">
+                    Category_ID
+                </label>
+                <input type="text" name="category_id" id="category_id"/>
+            </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
