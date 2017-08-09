@@ -25,7 +25,8 @@ class Message extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'User1' => false,
-        'User2' => false
+        'User1' => true,
+        'User2' => true
     ];
+
 }

@@ -4,7 +4,8 @@ a.disabled {
 }
 
 a:hover {
-    color: #15848F;
+    color: #8e0b0b;
+    text-decoration: none;
 }
 
 a {
@@ -20,7 +21,7 @@ a {
 }
 
 header {
-    background-color: #e51212;
+    background-color: #8e0b0b;
     color: #ffffff;
     font-size: 30px;
     height: 84px;
@@ -37,7 +38,18 @@ header .header-title {
   padding-right: 300px;
   border: none;
 }
+.h3{
+  color: red;
+  color:inherit;
 
+}
+
+button:hover{
+    background: linear-gradient(#e51212,#8e0b0b, #8e0b0b);
+}
+body{
+  background: linear-gradient(#ffff,#ffff, #ffff);
+}
 .panel-default{
   background-color: white;
 }
@@ -329,19 +341,19 @@ pre {
 
 .top-bar.expanded .title-area {
     /*background: #01545b;*/
-    background: #e51212;
+    background: linear-gradient(#e51212,#8e0b0b, #8e0b0b);
 }
 
 .top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
     /*background: #116d76;*/
-    background: #000000;
+  background: linear-gradient(#404040, black, black);
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
     /*background-color: #308e97;*/
     /*background: #308e97;*/
     background-color: #e51212;
-    background: #e51212;
+    background: linear-gradient(#e51212,#8e0b0b, #8e0b0b);
 }
 
 .side-nav li.heading {
@@ -411,6 +423,7 @@ fieldset legend {
     float: right;
     text-transform: uppercase;
     box-shadow: none;
+    background: linear-gradient(lightgrey,grey,darkgrey);
 }
 
 .form button:hover, .form button:focus {
@@ -419,7 +432,7 @@ fieldset legend {
 }
 
 button {
-    background: #966600;
+    background: linear-gradient(lightgrey,grey,darkgrey);
 }
 
 div.message {

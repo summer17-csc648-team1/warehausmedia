@@ -1,29 +1,54 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+$this->layout = 'default';
+$this->Html->css('home.css');
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Media'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="media form large-9 medium-8 columns content">
-    <?= $this->Form->create($media) ?>
-    <fieldset>
-        <legend><?= __('Add Media') ?></legend>
-        <?php
-            echo $this->Form->control('Title');
-            echo $this->Form->control('FileLocation');
-            echo $this->Form->control('ThumbnailLocation');
-            echo $this->Form->control('MediaType');
-            echo $this->Form->control('Format');
-            echo $this->Form->control('DateUploaded', ['empty' => true]);
-            echo $this->Form->control('Price');
-            echo $this->Form->control('Categories_Category_ID');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1 style="text-align: center">Add Media</h1>
+        <div class="index large-4 medium-4 large-offset-4 medium-offset-4 columns content">
+           
+        <?= $this->Form->create('media', array('enctype'=>'multipart/form-data')); ?>
+            
+            <?= $this->Form->input('Title', array(
+                                           'label' => 'Title',
+                                           'class'=> 'form-control'
+                                            
+                                    ));?>
+            <?= $this->Form->input('Description', array(
+                                           'label' => 'Description',
+                                           'class'=> 'form-control',
+                                           'type' => 'textarea'
+                                    ));?>
+            <?= $this->Form->input('category_id', array(
+                                           'label' => 'Category',
+                                           'type' => 'select',
+                                           'options' => h($category_array),
+                                           'empty' => false
+                                    ));?>
+            <?= $this->Form->input('Price', array(
+                                           'label' => 'Price',
+                                           'class'=> 'form-control',
+                                           'type' => 'number',
+                                           'step' => '0.01'
+                                    ));?>
+            <?= $this->Form->input('upload', array(
+                                           'label' => 'Upload',
+                                           'class'=> 'form-control',
+                                           'type' => 'file'
+                                    ));?>
+            
+            <?= $this->Form->hidden('user_id', array(
+                                           'type' => 'int',
+                                           'value' => h($userid),
+                                           'empty' => false
+                                    ));?>
+            
+           
+        <?= $this->Form->submit('Create Product', array('class' => 'btn btn-primary')); ?>
+        <?= $this->Form->end(); ?>
+        
+        </div>
+    </body>
+</html>

@@ -4,6 +4,8 @@ namespace App\Controller;
 use Cake\Log\Log;
 use App\Controller\AppController;
 use Cake\Validation\Validation;
+use Cake\Event\Event;
+
 
 /**
  * Users Controller
@@ -20,7 +22,7 @@ class UsersController extends AppController
         parent::initialize();
 
         //Allow users to access register page
-        $this->Auth->allow(['add']);
+        $this->Auth->allow(['logout', 'add']);
     }
     /**
      * Index method
@@ -73,12 +75,13 @@ class UsersController extends AppController
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
-    
+
     public function login()
-    {   
-        
+    {
+
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
+            
             if ($user) {
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('Successfully logged in.'));
@@ -88,6 +91,12 @@ class UsersController extends AppController
                 $this->Flash->error('Your username or password is incorrect.');
             }
         }
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('You are now logged out.');
+        return $this->redirect($this->Auth->logout());
     }
 
     /**

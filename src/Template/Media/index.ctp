@@ -22,9 +22,11 @@
                 <th scope="col"><?= $this->Paginator->sort('MediaType') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Format') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('DateUploaded') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Description') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Price') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Categories_Category_ID') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Users_UserID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
+
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -38,9 +40,10 @@
                 <td><?= h($media->MediaType) ?></td>
                 <td><?= h($media->Format) ?></td>
                 <td><?= h($media->DateUploaded) ?></td>
+                <td><?= h($media->Description) ?></td>
                 <td><?= $this->Number->format($media->Price) ?></td>
-                <td><?= $this->Number->format($media->Categories_Category_ID) ?></td>
-                <td><?= $this->Number->format($media->Users_UserID) ?></td>
+                <td><?= $this->Number->format($media->category_id) ?></td>
+                <td><?= $this->Number->format($media->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $media->MediaID]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $media->MediaID]) ?>
