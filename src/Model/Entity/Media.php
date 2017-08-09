@@ -30,4 +30,9 @@ class Media extends Entity
         '*' => true,
         'MediaID' => false,
     ];
+<<<<<<< HEAD
 }
+=======
+   
+}
+>>>>>>> master

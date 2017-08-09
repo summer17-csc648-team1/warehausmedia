@@ -16,50 +16,48 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?= $this->fetch('title') ?></title>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+        <?= $this->Html->meta('icon') ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-              <h1><a class="logo" href="/pages/home">WAREHAUS</a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-        <ul class="right">
-          <li><a href="/pages/about">ABOUT US</a></li>
-          <li><a href="/pages/message">MESSAGE</a></li>
-          <li><a href="/pages/upload">UPLOAD</a></li>
-            <?php if($this->request->session()->read('Auth')) { ?>
-                <li><a href="/users/login">LOGOUT</a></li>
-            <?php }
+        <?= $this->Html->css('base.css') ?>
+        <?= $this->Html->css('cake.css') ?>
+        <?= $this->Html->css('home.css') ?>
 
-            else{ ?>
-                <li><a href="/users/login">LOGIN</a></li>
-                <li><a href="/pages/register">REGISTER</a></li>
+        <?= $this->fetch('meta') ?>
+        <?= $this->fetch('css') ?>
+        <?= $this->fetch('script') ?>
+    </head>
 
-            <?php } ?>
-        </ul>
+    <body>
+        <nav class="top-bar expanded" data-topbar role="navigation">
+            <ul class="title-area large-3 medium-4 columns">
+                <li class="name">
+                    <h1><a href="/pages/home">WAREHAUS</a></h1>
+                </li>
+            </ul>
+
+            <div class="top-bar-section">
+                <ul class="right">
+                    <li><a href="/media/add">UPLOAD</a></li>
+                    <?php if($this->request->session()->read('Auth')) { ?>
+                        <li><a href="/users/logout">LOGOUT</a></li>
+                    <?php }
+                    else{ ?>
+                        <li><a href="/users/add">REGISTER</a></li>
+                        <li><a href="/users/login">LOGIN</a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container clearfix">
+            <?= $this->fetch('content') ?>
         </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
-    </footer>
-</body>
+
+        <footer></footer>
+    </body>
 </html>
