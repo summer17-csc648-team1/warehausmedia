@@ -101,7 +101,7 @@ Router::scope(
     '/media',
     ['controller' => 'Media'],
     function ($routes) {
-        $routes->connect('/searchByTitle/*', ['action' => 'searchByTitle']);
+        $routes->connect('/search/*', ['action' => 'search']);
     }
 );
 

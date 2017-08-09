@@ -109,7 +109,11 @@ class MediaTable extends Table
     }
 
     public function findByTitle(Query $query, array $options){
-        die('test findByTitle');
+        $results = $this->find('all')
+            ->select(['Media.MediaID', 'Media.user_id', 'Media.category_id', 'Media.Title', 'Media.FileLocation'])
+            ->where(['Media.category_id =' => $options['category']])
+            ->where(['Media.Title LIKE' => '%' . $options['search_input'] . '%']);
+        return $results;
     }
 
 

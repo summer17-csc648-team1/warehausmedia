@@ -13,7 +13,6 @@ use Cake\ORM\TableRegistry;
  * @method \App\Model\Entity\Media[] paginate($object = null, array $settings = [])
  */
 class MediaController extends AppController {
-
     /**
      * Index method
      *
@@ -21,7 +20,7 @@ class MediaController extends AppController {
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow('index');
+        $this->Auth->allow(['index', 'search', 'getDetail']);
     }
 
     public function index() {
@@ -38,6 +37,7 @@ class MediaController extends AppController {
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
     public function view($id = null) {
         $media = $this->Media->get($id, [
             'contain' => []
@@ -190,5 +190,17 @@ class MediaController extends AppController {
 
         $this->set(['detail' => $detail]);
     }
-    
+
+    public function search(){
+        $data = $this->request->getData();
+        $category = $data['Media']['CategoryID'];
+        $search_input = $data['search_input'];
+
+        $results = $this->Media->find('byTitle', [
+            'category' => $category,
+            'search_input' => $search_input
+        ]);
+
+        $this->set('results', $results->toArray());
+    }
 }
