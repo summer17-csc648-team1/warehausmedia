@@ -100,9 +100,11 @@ class MediaController extends AppController {
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null) {
-        $media = $this->Media->get($id, [
-            'contain' => []
-        ]);
+        $media = $this->Media
+            ->find()
+            ->where(['MediaID =' => $id])
+            ->toArray()[0];
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $media = $this->Media->patchEntity($media, $this->request->getData());
             if ($this->Media->save($media)) {
@@ -125,7 +127,10 @@ class MediaController extends AppController {
      */
     public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
-        $media = $this->Media->get($id);
+        $media = $this->Media
+            ->find()
+            ->where(['MediaID =' => $id])
+            ->toArray()[0];
         if ($this->Media->delete($media)) {
             $this->Flash->success(__('The media has been deleted.'));
         } else {
@@ -202,5 +207,23 @@ class MediaController extends AppController {
         ]);
 
         $this->set('results', $results->toArray());
+    }
+}
+    public function isAuthorized($user)
+    {
+        // All registered users can add media
+        if ($this->request->getParam('action') === 'view' || $this->request->getParam('action') === 'index' ) {
+            return true;
+        }
+
+        // The owner of an media can edit and delete it
+        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+            $articleId = (int)$this->request->getParam('pass.0');
+            if ($this->Media->isOwnedBy($articleId, $user['UserID'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 }
