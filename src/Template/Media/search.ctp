@@ -44,6 +44,7 @@ $this->set(compact('category_array'))
 
     <body>
         <div class="content">
+            <h2>Search Results</h2>
             <?php foreach ($results as $item): ?>
             <table>
                 <tr>
