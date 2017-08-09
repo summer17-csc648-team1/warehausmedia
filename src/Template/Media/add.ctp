@@ -1,4 +1,7 @@
-<?php $this->layout = 'default';?>
+<?php
+$this->layout = 'default';
+$this->Html->css('home.css');
+?>
 
 <!DOCTYPE html>
 <html>
@@ -42,13 +45,10 @@
                                            'empty' => false
                                     ));?>
             
-            
-        <?= $this->Form->submit('Create Product', array('class' => 'btn btn-primary')); ?>    
+           
+        <?= $this->Form->submit('Create Product', array('class' => 'btn btn-primary')); ?>
         <?= $this->Form->end(); ?>
         
         </div>
-
-
     </body>
 </html>
-
