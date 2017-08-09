@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use Cake\Log\Log;
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validation;
 use Cake\Event\Event;
 
@@ -142,5 +143,33 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function dashboard(){
+        $user = $this->Auth->user();
+        $userID = $user['UserID'];
+
+        $myStuffs= $this->Users->find('myStuffs', [
+            'userID' => $userID
+        ]);
+
+        $messages = $myStuffs['messages'];
+        $images = $myStuffs['images'];
+
+        /*foreach ($messages as $msg){
+            debug($msg);
+        }*/
+
+        /*foreach ($images as $image){
+            debug($image);
+        }*/
+
+
+
+        $this->set([
+            'user'=>$user,
+            'messages'=>$messages,
+            'images'=>$images
+            ]);
     }
 }

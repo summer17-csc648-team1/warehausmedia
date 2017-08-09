@@ -43,6 +43,11 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+
+Router::scope('/users', function (RouteBuilder $routes) {
+    $routes->connect('/dashboard', ['controller' => 'Users', 'action' => 'dashboard']);
+});
+
 Router::scope('/messages',
     ['controller'=>'Messages'],
     function (RouteBuilder $routes){

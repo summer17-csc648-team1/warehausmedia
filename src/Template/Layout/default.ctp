@@ -31,7 +31,6 @@
         <?= $this->fetch('script') ?>
         <? php include_once("analyticstracking.php") ?>
     </head>
-
     <body>
         <nav class="top-bar expanded" data-topbar role="navigation">
             <ul class="title-area large-3 medium-4 columns">
@@ -44,6 +43,7 @@
                 <ul class="right">
                     <li><a href="/media/add">UPLOAD</a></li>
                     <?php if($this->request->session()->read('Auth')) { ?>
+                        <li><a href="/users/dashboard">MY STUFF</a></li>
                         <li><a href="/users/logout">LOGOUT</a></li>
                     <?php }
                     else{ ?>

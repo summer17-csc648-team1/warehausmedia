@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -63,4 +64,26 @@ class UsersTable extends Table
 
         return $validator;
     }
+
+    public function findMyStuffs(Query $query, array $options){
+        $userID = $options['userID'];
+
+//        //get username
+//        $users = TableRegistry::get("users");
+//        $Username = $users->find()
+//            ->where(['User1' => $userID]);
+
+        //get messages
+        $messages = TableRegistry::get('messages');
+        $msgToMe = $messages->find()
+            ->where(['User2' => $userID]);
+
+        //get images
+        $media = TableRegistry::get('media');
+        $myImages = $media->find()
+            ->where(['user_id'=>$userID]);
+
+        return ['messages' => $msgToMe, 'images' => $myImages];
+    }
+
 }
