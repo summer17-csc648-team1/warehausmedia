@@ -20,7 +20,7 @@ class MediaController extends AppController {
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow('index');
+        $this->Auth->allow('index', 'search', 'view');
     }
 
     public function index() {
@@ -192,7 +192,15 @@ class MediaController extends AppController {
     }
 
     public function search(){
-        $param = $this->request->getParam('pass');
-        debug($param);
+        $data = $this->request->getData();
+        $category = $data['Media']['CategoryID'];
+        $search_input = $data['search_input'];
+
+        $results = $this->Media->find('byTitle', [
+            'category' => $category,
+            'search_input' => $search_input
+        ]);
+
+        $this->set('results', $results);
     }
 }

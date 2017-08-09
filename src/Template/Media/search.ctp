@@ -24,7 +24,7 @@ use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
 $this->layout = 'default';
-$title = 'Home';
+$title = 'Search Results';
 
 $categories = TableRegistry::get('Categories')->find('all');
 foreach ($categories as $category) {
@@ -43,34 +43,28 @@ $this->set(compact('category_array'))
     </head>
 
     <body>
-        <div class="container" text-align="center">
-            <h1> WAREHAUS</h1>
-            <div style="width: 100%; overflow: hidden;">
-                <div style="text-align: center; width: 90%; padding: 0 0 0 10%; margin: 0; height: 25px; overflow: hidden;">
-                    <p>CSC 648/848 Team 1</p>
-                    <p>(For Demonstration Purposes only)</p>
-                </div>
-            </div>
-        </div>
-
-        <div style="padding: 100px; width: 100%; align: center;" >
-            <h3>Search</h3>
-            <?php echo $this->Form->create(null, [
-                'url' => ['controller' => 'Media', 'action' => 'search']
-            ]); ?>
-            <span style="width: 25%; float: left; display: inline-block;"><?php echo $this->Form->input('Media.CategoryID', array(
-                  'label' => 'Category',
-                  'type' => 'select',
-                  'options' => h($category_array),
-                  'empty' => false
-            )); ?></span>
-            <span style="width: 75%; display: inline-block;"><?php echo $this->Form->input('search_input', array(
-                  'label' => 'Title'
-            )); ?>
-            <div style="float: right;">
-              <?php echo $this->Form->button('Search'); ?>
-            </div>
-            <?php echo $this->Form->end(); ?>
+        <div class="content">
+            <?php foreach ($results as $item): ?>
+            <table>
+                <tr>
+                    <td>
+                        <a href="/media/detail/<?php echo $item['MediaID'];?>">
+                            <img src="<?php echo $this->request->webroot.$item['FileLocation'];?>"/>
+                        </a>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <h3><?php echo $item['Title'];?></h3>
+                            </tr>
+                            <tr>
+                                <a href="/media/detail/<?php echo $item['MediaID'];?>"><button>Details</button></a>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <?php endforeach; ?>
         </div>
     </body>
 </html>
