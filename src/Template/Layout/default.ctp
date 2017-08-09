@@ -12,7 +12,6 @@
  * @since         0.10.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,6 +29,7 @@
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
+        <? php include_once("analyticstracking.php") ?>
     </head>
 
     <body>
