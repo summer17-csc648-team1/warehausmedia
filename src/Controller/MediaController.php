@@ -201,6 +201,6 @@ class MediaController extends AppController {
             'search_input' => $search_input
         ]);
 
-        $this->set('results', $results);
+        $this->set('results', $results->toArray());
     }
 }

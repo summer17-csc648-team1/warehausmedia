@@ -45,6 +45,11 @@ $this->set(compact('category_array'))
     <body>
         <div class="content">
             <h2>Search Results</h2>
+            <?php if(empty($results)){?>
+                <p>
+                  No results found with that query.
+                </p>
+            <?php }?>
             <?php foreach ($results as $item): ?>
             <table>
                 <tr>
@@ -66,6 +71,7 @@ $this->set(compact('category_array'))
                 </tr>
             </table>
             <?php endforeach; ?>
+            <!-- <?php debug($results); ?> -->
         </div>
     </body>
 </html>
