@@ -12,7 +12,6 @@
  * @since         0.10.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,36 +22,14 @@
 
         <?= $this->Html->meta('icon') ?>
 
-<<<<<<< HEAD
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-<? php include_once("analyticstracking.php") ?>
-</head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-              <h1><a class="logo" href="/pages/home">WAREHAUS</a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-        <ul class="right">
-          <li><a href="/pages/about">ABOUT US</a></li>
-          <li><a href="/pages/message">MESSAGE</a></li>
-          <li><a href="/media/add">UPLOAD</a></li>
-            <?php if($this->request->session()->read('Auth')) { ?>
-                <li><a href="/users/logout">LOGOUT</a></li>
-            <?php }
-=======
         <?= $this->Html->css('base.css') ?>
         <?= $this->Html->css('cake.css') ?>
         <?= $this->Html->css('home.css') ?>
->>>>>>> master
 
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
+        <? php include_once("analyticstracking.php") ?>
     </head>
 
     <body>
