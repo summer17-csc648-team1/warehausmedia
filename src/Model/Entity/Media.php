@@ -34,5 +34,9 @@ class Media extends Entity
         'MediaID' => true,
         'user_id' => true
     ];
-   
+    public function isOwnedBy($MediaId, $userId)
+    {
+
+        return $this->exists(['MediaID' => $MediaId, 'user_id' => $userId]);
+    }
 }
