@@ -3,7 +3,7 @@
   * @var \App\View\AppView $this
   */
 ?>
-<div class="users form large-9 medium-8 columns content">
+<div class="index large-3 medium-3 large-offset-3 medium-offset-3 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
         <legend><?= __('Add User') ?></legend>
